@@ -1,0 +1,14 @@
+{
+	"start":"server.js",
+	"name": "backbond",
+	
+	"dependencies":{
+		"backbone":"1.2.3"
+	},
+
+	"devDependencies":{
+		"grunt":"0.4.5",
+		"grunt-contrib-watch":"0.6.1",
+		"grunt-iisexpress":"0.4.0"
+	}
+}
