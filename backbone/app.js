@@ -13,22 +13,42 @@
 	var pEl = Backbone.View.extend({
 		tagName: 'p',
 		id: 'my-p-el',
-		className:'my-p-el'
-	});
-
-	var p = new pEl(new model());
-	window.test = p;
-	$('body').append(p.el)
-
-	var button = new Backbone.View({
-		tagName: 'button',
-		render: function () { $('body').append(this.el); },
+		className: 'my-p-el',
 		initialize: function () {
-			this.render();
-			console.log('inited button', this)
+			setText(this, 'this is my first backbone element');
+			$('body').append(this.el);
 		}
 	});
-	button.$el.text('setBorder')
+
 	
+	
+
+
+	var buttonE = Backbone.View.extend({
+		tagName: 'button',
+		render: function () { $('body').append(this.el) },
+		initialize: function (text) {
+			this.render();
+			setText(this, text);
+		},
+		events: {
+			"click": function () { setBorder(p); setText(p, 'again this is my first backbone element'); }
+		}
+	});
+
+
+	var p = new pEl();
+	var button = new buttonE('set border');
+
+	
+
+	function setBorder(view) {
+		view.$el.css('border','solid 1px blue');
+	}
+
+	function setText(view, text) {
+		view.$el.text(text);
+	}
+
 })();
 
