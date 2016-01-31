@@ -4,8 +4,9 @@
     'use strict';
 
     BackboneView(Backbone);
-    BackboneEvents(Backbone);
     BackboneModel(Backbone);
+    BackboneEvents(Backbone);
+    BackboneCollection(Backbone);
 
 })(window.Backbone);
 
@@ -48,6 +49,25 @@ function BackboneView(Backbone) {
 
 }
 
+function BackboneModel(Backbone) {
+
+    var Note = Backbone.Model.extend({
+        defaults: { _id: 000000 },
+        idAttribute: "_id",
+        allowEidt: function () { return true; },
+        initialize: function () {
+            this.listenTo(this, 'change:name', function (p1, p2) { console.log('changed', p1, p2) })
+        }
+    });
+
+    var mynote = new Note({
+        name: (new Date()).toLocaleTimeString(),
+        _id: 123456
+    });
+
+    mynote.set('name', 'note1');
+}
+
 function BackboneEvents(Backbone) {
     //var person = function (name) {
     //    this.name = name;
@@ -74,21 +94,46 @@ function BackboneEvents(Backbone) {
     erik.trigger('say:greet say:name', 'erik');
 }
 
-function BackboneModel(Backbone) {
+function BackboneCollection(Backbone) {
+    
+    var classmates = new Backbone.Collection([
+        { name: 'erik', id: 1 },
+        { name: 'jhon', id: 2 },
+        { name: 'jame', id: 3 },
+    ]);
 
-    var Note = Backbone.Model.extend({
-        defaults: { _id: 000000 },
-        idAttribute: "_id",
-        allowEidt: function () { return true; },
+    var MyModel = new Backbone.Model.extend({
+        say: function () { console.log('Hi, I am ' + this.name) },
+    });
+    var MyCollection = Backbone.Collection.extend({
+        model: MyModel,
         initialize: function () {
-            this.listenTo(this, 'change:name', function (p1, p2) { console.log('changed', p1, p2) })
+            this.bind(this);
+            //this.setElement(this.at(0));
+        },
+        comparator: function (model) {
+            return model.get("id");
+        },
+        getElement: function () {
+            return this.currentElement;
+        },
+        setElement: function (model) {
+            this.currentElement = model;
+        },
+        next: function () {
+            this.setElement(this.at(this.indexOf(this.getElement()) + 1));
+            return this;
+        },
+        prev: function () {
+            this.setElement(this.at(this.indexOf(this.getElement()) - 1));
+            return this;
         }
     });
 
-    var mynote = new Note({
-        name: (new Date()).toLocaleTimeString(),
-        _id: 123456
-    });
-
-    mynote.set('name', 'note1');
-    }
+    var collection1 = new MyCollection([
+        { name: 'person1' },
+        { name: 'person2' },
+        { name: 'person3' }
+    ])
+    console.log(collection1);
+}
