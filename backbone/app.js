@@ -1,54 +1,94 @@
-﻿
-(function () {
-	'use strict';
+﻿///reference
 
+(function (Backbone) {
+    'use strict';
 
-	var model = Backbone.Model.extend({
-		showBorder: function () {
-			this.set({ border: 'solid 1px' });
-		}
-	});
+    BackboneView(Backbone);
+    BackboneEvents(Backbone);
+    BackboneModel(Backbone);
 
+})(window.Backbone);
 
-	var pEl = Backbone.View.extend({
-		tagName: 'p',
-		id: 'my-p-el',
-		className: 'my-p-el',
-		initialize: function () {
-			setText(this, 'this is my first backbone element');
-			$('body').append(this.el);
-		}
-	});
+function BackboneView(Backbone) {
 
-	
-	
+    var pEl = Backbone.View.extend({
+        tagName: 'p',
+        initialize: function (text) {
+            setText(this, text);
+            $('body').append(this.el);
+        }
+    });
 
+    var buttonE = Backbone.View.extend({
+        tagName: 'button',
+        render: function () { $('body').append(this.el) },
+        initialize: function (text, clickArg) {
+            this.render();
+            this.clickArg = clickArg;
+            setText(this, text);
+        },
+        events: {
+            "click": function () {
+                setBorder(this.clickArg);
+                setText(this.clickArg, 'again this is my first backbone element');
+            }
+        }
+    });
 
-	var buttonE = Backbone.View.extend({
-		tagName: 'button',
-		render: function () { $('body').append(this.el) },
-		initialize: function (text) {
-			this.render();
-			setText(this, text);
-		},
-		events: {
-			"click": function () { setBorder(p); setText(p, 'again this is my first backbone element'); }
-		}
-	});
+    var p = new pEl('this is my first backbone element');
+    var button = new buttonE('set border', p);
 
+    function setBorder(view) {
+        view.$el.css('border', 'solid 1px blue');
+    }
 
-	var p = new pEl();
-	var button = new buttonE('set border');
+    function setText(view, text) {
+        view.$el.text(text);
+    }
 
-	
+}
 
-	function setBorder(view) {
-		view.$el.css('border','solid 1px blue');
-	}
+function BackboneEvents(Backbone) {
+    //var person = function (name) {
+    //    this.name = name;
+    //    return this;
+    //};
+    //person.prototype = Backbone.Events;
 
-	function setText(view, text) {
-		view.$el.text(text);
-	}
+    //var erik = new person('erik');
+    //erik.on('say', function () { console.log('my name is ' + this.name); });
+    //erik.trigger('say');
 
-})();
+    var erik = { say: function () { console.log(this.name); } };
+    _.extend(erik, Backbone.Events);
+    erik.on({
+        'say:name': function (name) { console.log('my name is ' + name); this.name = name; },
+        'say:greet': function () { console.log('hi there!'); }
+    });
 
+    var friendOfErik = {};
+    friendOfErik.say = function () { console.log('hello!'); };
+    _.extend(friendOfErik, Backbone.Events);
+    friendOfErik.listenTo(erik, 'say:name', friendOfErik.say);
+
+    erik.trigger('say:greet say:name', 'erik');
+}
+
+function BackboneModel(Backbone) {
+
+    var Note = Backbone.Model.extend({
+        defaults: { _id: 000000 },
+        idAttribute: "_id",
+        allowEidt: function () { return true; },
+        initialize: function () {
+            this.listenTo(this, 'change:name', function (p1, p2) { console.log('changed', p1, p2) })
+        }
+    });
+
+    var mynote = new Note({
+        name: (new Date()).toLocaleTimeString(),
+        _id: 123456
+    });
+
+    mynote.set('name', 'note1');
+    }
