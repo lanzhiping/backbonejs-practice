@@ -1,29 +1,34 @@
-﻿console.log('hello world');
+﻿(function(http) {
 
-(function(http) {
+	// var dbInstance = new initDataBase('db/test.js');
+	// dbInstance.write({ name: "zhiping" });
+	// console.log(dbInstance.read());
 
-	var dbInstance = new initDataBase('db/test.js');
-	dbInstance.write({ name: "zhiping" });
-	console.log(dbInstance.read());
+	var server = http.createServer(function(request, response) {
 
-	//var server = http.createServer(function(request, response) {
-	//	response.writeHead(200, { "Content-Type": "text/html" });
-	//	response.write('<!DOCTYPE \"html\">');
-	//	response.write("<html>");
-	//	response.write("<head>");
-	//	response.write("<title>Hello World Page</title>");
-	//	response.write("</head>");
-	//	response.write("<body>");
-	//	response.write("Hello World!");
-	//	response.write("</body>");
-	//	response.write("</html>");
+		response.writeHead(200, { "Content-Type": "text/plain" });
+
+		// response.write('<!DOCTYPE \"html\">');
+		// response.write("<html>");
+		// response.write("<head>");
+		// response.write("<title>Hello World Page</title>");
+		// response.write("</head>");
+		// response.write("<body>");
+		//console.log(JSON.stringify(request));
+		response.write('hello world');
+
+		//response.write("Hello World!");
 
 
-	//	response.end();
-	//});
+		// response.write("</body>");
+		// response.write("</html>");
 
-	//server.listen(8080);
-	//console.log("Server is listening");
+
+		response.end();
+	});
+
+	server.listen(8080);
+	console.log("Server is listening");
 
 
 })(require('http'));
@@ -34,9 +39,7 @@ function initDataBase(filePath) {
 	this.filePath = filePath;
 
 	this.write = function(obj) {
-		jsonfile.writeFile(this.filePath, obj, function(err) {
-			console.error('write json to file error', err);
-		});
+		jsonfile.writeFileSync(this.filePath, obj);
 	};
 
 	this.read = function() {
