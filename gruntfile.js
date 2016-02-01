@@ -37,6 +37,13 @@
 					open: true,
 					openPath: '/backbone/index.html'
 				}
+			},
+
+			db: {
+				options: {
+					port: 4000,
+					path: '../practice/db'
+				}
 			}
 		}
 	});
