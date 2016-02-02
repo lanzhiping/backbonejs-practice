@@ -1,4 +1,4 @@
-﻿(function (Backbone) {
+(function (Backbone) {
 	'use strict';
 
 	BackboneView(Backbone);
@@ -130,16 +130,12 @@ function BackboneCollection(Backbone) {
 
 	console.log(collection1);
 
-
-	var Book = Backbone.Model.extend({ urlRoot: '/db?' });
-	var book1 = new Book({
-		name: 'my family',
-		data: '2015-01-01',
-		id: 1
-	});
-
+	var Book = Backbone.Model.extend({ urlRoot: '/db#book' });
+	var book1 = new Book({ name:'my first book', author:'zhiping' });
+	console.log(book1, book1.isNew());
 	book1.save();
-	book1.fetch();
-	console.log(book1);
+	//book1.fetch();
+	
+
 
 }
