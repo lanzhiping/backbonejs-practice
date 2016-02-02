@@ -130,10 +130,14 @@ function BackboneCollection(Backbone) {
 
 	console.log(collection1);
 
-	var Book = Backbone.Model.extend({ urlRoot: '/db#book' });
+	var Book = Backbone.Model.extend({ urlRoot: '/db?book' });
 	var book1 = new Book({ name:'my first book', author:'zhiping' });
+	var book2 = new Book({ name:'my first book', author:'zhiping' });
+	var book3 = new Book({ name:'my first book', author:'zhiping' });
 	console.log(book1, book1.isNew());
 	book1.save();
+	book2.save();
+	book3.save();
 	//book1.fetch();
 	
 

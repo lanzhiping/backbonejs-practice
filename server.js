@@ -15,7 +15,7 @@ function InitDataBase(filePath) {
 	this.write = function (objectType, obj) {
 		console.log('write: ' + objectType);
 
-		var fileContent = fs.readFileSync('db/test.js').toString('utf8');
+		var fileContent = fs.readFileSync('db/db.js').toString('utf8'); // todo: should be implement when init
 		var	rootObject = fileContent.length == 0 ? {} : JSON.parse(fileContent);
 		if(rootObject[objectType] == undefined) rootObject[objectType] = [];
 
@@ -27,7 +27,7 @@ function InitDataBase(filePath) {
 			});
 		} else {
 			var index = 0;
-			rootObject[objectType].sort(compare).forEach(function(item){ if(item.id > index) return; });
+			rootObject[objectType].sort(compare).forEach(function(item){ if(item.id > index) return; }); // todo: id is the same
 			obj.id = index.toString();
 			rootObject[objectType].push(obj);
 		}
@@ -123,11 +123,11 @@ function errResponse(response) {
 function createFromChunk(request, response) {
 	
 	var urlInfo = url.parse(request.url, true),
-		objectType  = urlInfo.search.split('/')[1];
+		objectType  = urlInfo.search.split('?')[1];
 	console.log('handle request', urlInfo);
 
 	return function(chunk) {
-		var dbInstance = new InitDataBase(urlInfo.pathname + '/db.js');
+		var dbInstance = new InitDataBase('db/db.js');
 		var obj = JSON.parse(chunk.toString('utf8'));
 		dbInstance.write(objectType, obj);
 
