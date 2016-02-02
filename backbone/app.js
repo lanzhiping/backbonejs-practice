@@ -129,4 +129,12 @@ function BackboneCollection(Backbone) {
 	]);
 
 	console.log(collection1);
+
+
+	var Book = Backbone.Model.extend({ urlRoot: '/db?' });
+	var book1 = new Book({name:'my family', data:'2015-01-01'});
+	book1.save();
+	book1.fetch();
+	console.log(book1);
+
 }

@@ -4,17 +4,11 @@
 	fs = require("fs");
 
 (function (http) {
-
-	//var dbInstance = new initDataBase('db/test.js');
-	// dbInstance.write({ name: "zhiping" });
-	//console.log(dbInstance.read());
-
 	http.createServer(httpRequestHandler).listen(8080);
 	console.log("Server is listening");
-
 })(http);
 
-function initDataBase(filePath) {
+function InitDataBase(filePath) {
 	var jsonfile = require('jsonfile');
 	this.filePath = filePath;
 
@@ -78,9 +72,15 @@ function fileServer(response, filename) {
 
 function requestHandle(request, response) {
 
-	response.writeHead(200, { 'Content-Type': 'application/json' });
-	response.write(JSON.stringify({ name: 'lanzhiping' }));
-	response.end();
+	(request.method === 'PUT') && request.on('data', writeChunkToJson(response));
+	(request.method === 'GET') && (function() {
+		var dbInstance = new InitDataBase('db/test.js');
+		response.writeHead(200, { 'Content-Type': 'application/json' });
+		response.write(JSON.stringify(dbInstance.read()));
+		response.end();
+	})();
+
+	
 }
 
 function debug(response, obj) {
@@ -93,4 +93,17 @@ function errResponse(response) {
 	response.writeHead(404, { "Content-Type": "text/plain" });
 	response.write("404 Not Found\n");
 	response.end();
+}
+
+function writeChunkToJson(response) {
+
+	response.writeHead(200, { 'Content-Type': 'application/json' });
+	return function(chunk) {
+		var dbInstance = new InitDataBase('db/test.js');
+		var obj = JSON.parse(chunk.toString('utf8'));
+		response.write('success');
+		response.end();
+
+		return dbInstance.write(obj);
+	}
 }

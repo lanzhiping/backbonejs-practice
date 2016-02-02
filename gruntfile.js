@@ -54,6 +54,6 @@
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-iisexpress');
 
-	grunt.registerTask('default', ['iisexpress', 'uglify', 'concat', 'watch']);
+	grunt.registerTask('default', ['uglify', 'concat', 'watch']);
 
 };
