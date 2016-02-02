@@ -12,11 +12,13 @@ function InitDataBase(filePath) {
 	var jsonfile = require('jsonfile');
 	this.filePath = filePath;
 
-	this.write = function(obj) {
+	this.write = function (obj) {
+		console.log('write');
 		jsonfile.writeFileSync(this.filePath, obj);
 	};
 
-	this.read = function() {
+	this.read = function () {
+		console.log('read');
 		return jsonfile.readFileSync(this.filePath);
 	};
 }
@@ -73,6 +75,7 @@ function fileServer(response, filename) {
 function requestHandle(request, response) {
 
 	(request.method === 'PUT') && request.on('data', writeChunkToJson(response));
+
 	(request.method === 'GET') && (function() {
 		var dbInstance = new InitDataBase('db/test.js');
 		response.writeHead(200, { 'Content-Type': 'application/json' });
@@ -96,14 +99,13 @@ function errResponse(response) {
 }
 
 function writeChunkToJson(response) {
-
-	response.writeHead(200, { 'Content-Type': 'application/json' });
 	return function(chunk) {
 		var dbInstance = new InitDataBase('db/test.js');
 		var obj = JSON.parse(chunk.toString('utf8'));
+		dbInstance.write(obj);
+
+		response.writeHead(200, { 'Content-Type': 'application/json' });
 		response.write('success');
 		response.end();
-
-		return dbInstance.write(obj);
 	}
 }
