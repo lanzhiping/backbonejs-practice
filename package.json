@@ -1,4 +1,4 @@
-{ "name": "backbond"
+{ "name": "backbone"
 , "scripts": { "start": "node server.js" }
 , "dependencies": {"backbone": "1.2.3"
 				,  "underscore": "1.8.3"
