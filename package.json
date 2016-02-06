@@ -1,14 +1,14 @@
 { "name": "backbond"
 , "scripts": { "start": "node server.js" }
-, "dependencies": {"backbone":"1.2.3"
+, "dependencies": {"backbone": "1.2.3"
 				,  "underscore": "1.8.3"
 				,  "backbone.marionette": "2.4.4"
 				,  "jquery": "2.2.0" }
-, "devDependencies": {"grunt":"0.4.5"
-				   ,  "grunt-contrib-watch":"0.6.1"
-				   ,  "grunt-iisexpress":"0.4.0"
-				   ,  "grunt-contrib-uglify":"0.11.0"
-				   ,  "grunt-contrib-concat":"0.5.1"
-				   ,  "jsonfile":"2.2.3"
+, "devDependencies": {"grunt": "0.4.5"
+				   ,  "grunt-contrib-watch": "0.6.1"
+				   ,  "grunt-iisexpress": "0.4.0"
+				   ,  "grunt-contrib-uglify": "0.11.0"
+				   ,  "grunt-contrib-concat": "0.5.1"
+				   ,  "jsonfile": "2.2.3"
 				   }
 }
