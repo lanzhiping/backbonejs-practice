@@ -1,5 +1,18 @@
 ﻿module.exports = function(grunt) {
 
+	var libs = ['node_modules/underscore/underscore-min.js'
+			   ,'node_modules/jquery/dist/jquery.min.js'
+			   ,'node_modules/backbone/backbone-min.js'
+			   ,'node_modules/backbone.marionette/lib/backbone.marionette.min.js'
+			   ,'node_modules/requirejs/require.js'
+			   ],
+		libsOut = './dist/modules.js',
+		specs = ['**.spec.js'],
+		src = ['./backbone/*.js', '!./backbone/*.spec.js'],
+		srcOut = './dist/main.js';
+
+
+
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 
@@ -11,21 +24,15 @@
 		uglify: {
 			dev: {
 				files: {
-					'dist/main.js': ['backbone/**.js']
+					'dist/main.js': src
 				}
 			}
-			
 		},
 
 		concat: {
 			depen: {
 				files: {
-					'dist/modules.js': [
-						'node_modules/underscore/underscore-min.js',
-						'node_modules/jquery/dist/jquery.min.js',
-						'node_modules/backbone/backbone-min.js',
-						'node_modules/backbone.marionette/lib/backbone.marionette.min.js',
-					]
+					'dist/modules.js': libs
 				}
 			}
 		},
@@ -39,13 +46,29 @@
 				}
 			},
 
-			db: {
+			test: {
 				options: {
-					port: 4000,
-					path: '../practice/db'
+					port: 8000,
+					keepalive: true,
+					open: true,
+					path: './',
+					openPath: '/_SpecRunner.html'
 				}
 			}
-		}
+		},
+
+		jasmine: {
+	    	appTest: {
+		      	src: srcOut,
+		      	options: {
+		      		keepRunner: true,
+		      		host : 'http://localhost:8000/',
+		        	specs: specs,
+		        	vendor: libsOut
+		    	}
+	    	}
+	    }
+
 	});
 
 
@@ -53,7 +76,7 @@
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-iisexpress');
+	grunt.loadNpmTasks('grunt-contrib-jasmine');
 
 	grunt.registerTask('default', ['uglify', 'concat', 'watch']);
-
 };
