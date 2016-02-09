@@ -1,13 +1,19 @@
 module.exports = function(areaString){
-
 	var	fs = require('fs'),
 		url = require('url'),
 		path = require('path'),
+		backboneServer = new (require('./backboneServer.js'))('test'),
 		appStartPage = './' + areaString + '/index.html';
 
 	return function(request, response){
-		console.log("request coming in: " + request.url);
+		console.log("incoming request: " + request.url);
 		response.statusCode = 204;
+
+		if(request.url.indexOf('/api') === 0){
+			backboneServer(request, response);
+			console.log('-------------------' + (new Date).toTimeString() + '---------------------');
+			return;
+		}
 
 		try {
 			var uri = url.parse(request.url),
@@ -25,10 +31,10 @@ module.exports = function(areaString){
 		}catch(e){
 			errResponse(response);
 		}finally{
-			response.statusCode === 204
-			&& errResponse(response);
+			response.statusCode === 204	&& errResponse(response);
 		}
-		console.log('-----------------' + (new Date).toTimeString() + '---------------------');
+
+		console.log('-------------------' + (new Date).toTimeString() + '---------------------');
 		return;
 	}
 
