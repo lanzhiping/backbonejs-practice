@@ -1,12 +1,44 @@
 (function (Backbone) {
 	'use strict';
 
-	BackboneView(Backbone);
-	BackboneModel(Backbone);
-	BackboneEvents(Backbone);
-	BackboneCollection(Backbone);
+
+	BackboneRouter(Backbone);
+	//BackboneView(Backbone);
+	//BackboneModel(Backbone);
+	//BackboneEvents(Backbone);
+	//BackboneCollection(Backbone);
 
 })(window.Backbone);
+
+function BackboneRouter(Backbone){
+	var Workspace = Backbone.Router.extend({
+		routes: {
+			'home':                 'home',// #home
+			'login/:loginAccount':  'login',// #login/lannano
+			'*actions': 			'defaultRoute'
+		},
+
+		defaultRoute: function(actions) {
+			this.isLogoned && this.navigate('home',{trigger:true});
+			!this.isLogoned && this.navigate('login/lannano',{trigger:true});
+		},
+
+		home: function(){
+			console.log('home')
+		},
+
+		login: function(account) {
+			console.log('login', account)
+		},
+
+		initialize: function(options){
+			this.isLogoned = options.isLogoned;
+		}
+	});
+
+	var app = new Workspace({isLogoned: true});
+	Backbone.history.start();
+}
 
 function BackboneView(Backbone) {
 
@@ -135,11 +167,8 @@ function BackboneCollection(Backbone) {
 	var book2 = new Book({ name:'my first book', author:'zhiping' });
 	var book3 = new Book({ name:'my first book', author:'zhiping' });
 	console.log(book1, book1.isNew());
-	book1.save();
-	book2.save();
-	book3.save();
+	//book1.save();
+	//book2.save();
+	//book3.save();
 	//book1.fetch();
-	
-
-
 }
