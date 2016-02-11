@@ -46,7 +46,7 @@ module.exports = function(areaString){
 
 	function fileServer(response, filename) {
 		try{
-			var fileContent = fs.readFileSync(filename, 'utf8');
+			var fileContent = fs.readFileSync(filename);
 			response.writeHead(200, { 'Content-Type': fileType(filename) });
 		 	response.write(fileContent, 'utf8');
 		 	response.end();
@@ -62,6 +62,7 @@ module.exports = function(areaString){
 			case 'js': fileType = 'application/javascript'; break;
 			case 'css': fileType = 'text/css'; break;
 			case 'html': fileType = 'text/html'; break;
+			case 'woff': case 'ttf': fileType = 'application/octet-stream'; break;
 			default: fileType = 'text/html';
 		}
 		return fileType;
