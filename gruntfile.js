@@ -17,8 +17,14 @@
 		pkg: grunt.file.readJSON('package.json'),
 
 		watch: {
-			files: ['*.js', '*/**.js', '!dist/*'],
-			tasks: ['uglify', 'concat']
+			js:{
+				files: ['*.js', '*/**.js', '!dist/*'],
+				tasks: ['uglify', 'concat']	
+			},
+			html:{
+				files: ['*/*/*.html', '!dist/*'],
+				tasks: ['underscore_singlefile']		
+			}
 		},
 
 		uglify: {
@@ -67,6 +73,17 @@
 		        	vendor: libsOut
 		    	}
 	    	}
+	    },
+
+	    underscore_singlefile: {
+	        options : {
+	            name : '_templates',
+	            separartor : '\n\n'
+	        },
+	        build: {
+	            src: 'backbone/*/*.html',
+	            dest: 'dist/tpls.js'
+	        }
 	    }
 
 	});
@@ -77,6 +94,7 @@
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-iisexpress');
 	grunt.loadNpmTasks('grunt-contrib-jasmine');
+	grunt.loadNpmTasks('grunt-underscore-singlefile');
 
 	grunt.registerTask('default', ['uglify', 'concat', 'watch']);
 };
