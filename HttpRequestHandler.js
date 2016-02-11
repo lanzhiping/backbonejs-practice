@@ -47,11 +47,23 @@ module.exports = function(areaString){
 	function fileServer(response, filename) {
 		try{
 			var fileContent = fs.readFileSync(filename, 'utf8');
-			response.writeHead(200, { "Content-Type": "text/html" });
+			response.writeHead(200, { 'Content-Type': fileType(filename) });
 		 	response.write(fileContent, 'utf8');
 		 	response.end();
 		}catch(e){
 			errResponse(response);
 		}
+	}
+
+	function fileType(filename){
+		var	fileSuffix = filename.substr(filename.indexOf('.') + 1, filename.length),
+			fileType;
+		switch(fileSuffix){
+			case 'js': fileType = 'application/javascript'; break;
+			case 'css': fileType = 'text/css'; break;
+			case 'html': fileType = 'text/html'; break;
+			default: fileType = 'text/html';
+		}
+		return fileType;
 	}
 }
