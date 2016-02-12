@@ -3,7 +3,6 @@
 var app = app || {};
 
 (function (Backbone) {
-	'use strict';
 
 	BackboneRouter(Backbone);
 	//BackboneView(Backbone);
@@ -40,10 +39,10 @@ function BackboneRouter(Backbone){
 		},
 
 		home: function(){
-			console.log('home')
+			new app.homeView();
 		},
 
-		login: function(account) {
+		login: function() {
 			new app.loginView();
 		},
 
@@ -53,7 +52,7 @@ function BackboneRouter(Backbone){
 		}
 	});
 
-	app.router = new router({isLogined: false});
+	app.router = new router({isLogined: true});
 	Backbone.history.start();
 }
 

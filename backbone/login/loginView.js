@@ -5,18 +5,15 @@ var app = app || {};
 (function(Backbone){
 
 	app.loginView = Backbone.View.extend({
-		el: $("#container"),
+		el: '#container',
 		events: {'click #signIn': 'signIn'},
+		template: _templates['login_template'],
 		initialize: function(){
-			this.listenTo(app.router, 'change:isLogined', function(){
-				app.router.isLogined && this.$el.hide();
-			});
 			this.render();
 		},
 
 		render: function(){
-			var template = _templates['login_template']();
-			this.$el.html( template );
+			this.$el.html(this.template());
 			return this;
 			//A good convention is to return this at the end of render to enable chained calls.
 		},
@@ -27,8 +24,11 @@ var app = app || {};
 			app.router.isLogined = firstname === 'zhiping' && lastname === 'lan';
 			app.router.trigger('change:isLogined');
 
-			var fiveMinutes = 3000;
-			//setTimeout(function(){app.router.isLogined = false}, fiveMinutes);
+			var fiveMinutes = 300000;
+			setTimeout(function(){
+				app.router.isLogined = false;
+				app.router.trigger('change:isLogined');
+			}, fiveMinutes);
 		}
 	});
 
