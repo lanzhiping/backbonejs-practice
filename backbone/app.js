@@ -1,6 +1,9 @@
+'use strict';
+
+var app = app || {};
+
 (function (Backbone) {
 	'use strict';
-
 
 	BackboneRouter(Backbone);
 	//BackboneView(Backbone);
@@ -11,7 +14,8 @@
 })(window.Backbone);
 
 function BackboneRouter(Backbone){
-	var Workspace = Backbone.Router.extend({
+
+	var router = Backbone.Router.extend({
 		routes: {
 			'home':                 'home',// #home
 			'login/:loginAccount':  'login',// #login/lannano
@@ -19,8 +23,20 @@ function BackboneRouter(Backbone){
 		},
 
 		defaultRoute: function(actions) {
-			this.isLogoned && this.navigate('home',{trigger:true});
-			!this.isLogoned && this.navigate('login/lannano',{trigger:true});
+			this.isLogined && this.navigate('home', {trigger:true});
+			!this.isLogined && this.navigate('login/lannano', {trigger:true});
+		},
+
+		execute: function(callback, args, name){
+			if (!this.isLogined && name !=='login') {
+    			this.navigate('login/lannano', {trigger:true});
+    			return false;
+    		}
+    		if (this.isLogined && name === 'login'){
+    			this.navigate('home', {trigger: true});
+    			return false;
+    		}
+    		if (callback) callback.apply(this, args);
 		},
 
 		home: function(){
@@ -28,15 +44,16 @@ function BackboneRouter(Backbone){
 		},
 
 		login: function(account) {
-			console.log('login', account)
+			new app.loginView();
 		},
 
 		initialize: function(options){
-			this.isLogoned = options.isLogoned;
+			this.on('change:isLogined', this.defaultRoute);
+			this.isLogined = options.isLogined;
 		}
 	});
 
-	var app = new Workspace({isLogoned: true});
+	app.router = new router({isLogined: false});
 	Backbone.history.start();
 }
 
