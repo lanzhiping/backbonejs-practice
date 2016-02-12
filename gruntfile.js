@@ -8,7 +8,7 @@
 			   ],
 		libsOut = './dist/modules.js',
 		specs = ['**.spec.js'],
-		src = ['./backbone/**/*.js', '!./backbone/*.spec.js'],
+		src = ['backbone/*/*.js', 'backbone/*.js', '!backbone/**/*.spec.js'],
 		srcOut = './dist/main.js';
 
 
@@ -18,7 +18,7 @@
 
 		watch: {
 			js:{
-				files: ['*.js', 'backbone/**/**.js', '!dist/*'],
+				files: ['*.js', 'backbone/**/*.js', '!dist/*'],
 				tasks: ['uglify']	
 			},
 			html:{
