@@ -5,7 +5,7 @@ var app = app || {};
 (function (Backbone) {
 
 	BackboneRouter(Backbone);
-	//BackboneView(Backbone);
+	BackboneView(Backbone);
 	//BackboneModel(Backbone);
 	//BackboneEvents(Backbone);
 	//BackboneCollection(Backbone);
@@ -15,8 +15,10 @@ var app = app || {};
 function BackboneRouter(Backbone){
 
 	var router = Backbone.Router.extend({
+
 		routes: {
 			'home':                 'home',// #home
+			'like': 				'like',
 			'login/:loginAccount':  'login',// #login/lannano
 			'*actions': 			'defaultRoute'
 		},
@@ -41,7 +43,9 @@ function BackboneRouter(Backbone){
 		home: function(){
 			new app.homeView();
 		},
-
+		like: function(){
+			new app.likeView();
+		},
 		login: function() {
 			new app.loginView();
 		},
@@ -52,47 +56,59 @@ function BackboneRouter(Backbone){
 		}
 	});
 
-	app.router = new router({isLogined: true});
+	app.router = new router({isLogined: false});
 	Backbone.history.start();
 }
 
 function BackboneView(Backbone) {
 
-	var pEl = Backbone.View.extend({
-		tagName: 'p',
-		initialize: function (text) {
-			setText(this, text);
-			$('body').append(this.el);
-		}
-	});
-
-	var buttonE = Backbone.View.extend({
-		tagName: 'button',
-		render: function () { $('body').append(this.el) },
-		initialize: function (text, clickArg) {
-			this.render();
-			this.clickArg = clickArg;
-			setText(this, text);
-		},
+	var iconButton = Backbone.View.extend({
+		tagName:'i',
+		className:'iconfont',
+		container: $('#header'),
 		events: {
-			"click": function () {
-				setBorder(this.clickArg);
-				setText(this.clickArg, 'again this is my first backbone element');
-			}
+			'click': function(){this.click();}
+		},
+		render: function (classString) {
+			this.$el.addClass(classString);
+			this.container.append(this.el);
+			return this;
+		},
+		initialize: function (options) {
+			this.click = options.click;
+			this.render(options.iconClass);
+			options.toggleClass && this.toggleClass(options.toggleClass);
+		},
+		toggleClass: function(args){
+			args[3][args[2]]
+			? this.$el.removeClass(args[1]).addClass(args[0])
+			: this.$el.removeClass(args[0]).addClass(args[1]);
+			
+			this.listenTo(args[3], 'change:' + args[2] +' route', 
+				function(routeName){
+					args[3][args[2]]
+					? this.$el.removeClass(args[1]).addClass(args[0])
+					: this.$el.removeClass(args[0]).addClass(args[1]);
+					this.$el.toggleClass(args[0], this.$el[0].className.indexOf(routeName)>-1);
+				}
+			);
 		}
 	});
 
-	var p = new pEl('this is my first backbone element');
-	var button = new buttonE('set border', p);
+	new iconButton({
+		iconClass:'icon-left icon-homefill',
+		toggleClass:['actived','','', app.router] ,
+		click:function(){app.router.navigate('home', {trigger: true})}	});
 
-	function setBorder(view) {
-		view.$el.css('border', 'solid 1px blue');
-	}
+	new iconButton({
+		iconClass:'icon-left icon-likefill', 
+		toggleClass:['actived','','', app.router] ,
+		click:function(){app.router.navigate('like', {trigger: true})}	});
 
-	function setText(view, text) {
-		view.$el.text(text);
-	}
-
+	new iconButton({
+		iconClass: 'icon-right',
+		toggleClass: ['icon-weibo', 'icon-close2', 'isLogined', app.router], 
+		click:function(){app.router.navigate('login/lannano', {trigger: true})}	});
 }
 
 function BackboneModel(Backbone) {
