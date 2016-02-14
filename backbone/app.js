@@ -6,9 +6,6 @@ var app = app || {};
 
 	BackboneRouter(Backbone);
 	BackboneView(Backbone);
-	//BackboneModel(Backbone);
-	//BackboneEvents(Backbone);
-	//BackboneCollection(Backbone);
 
 })(window.Backbone);
 
@@ -109,73 +106,4 @@ function BackboneView(Backbone) {
 			app.router.isLogined = false; 
 			app.router.trigger('change:isLogined');}
 		});
-}
-
-function BackboneModel(Backbone) {
-
-	var Note = Backbone.Model.extend({
-		defaults: { _id: 000000 },
-		idAttribute: "_id",
-		allowEidt: function () { return true; },
-		initialize: function () {
-			this.listenTo(this, 'change:name', function(p1, p2) { console.log('changed', p1, p2) });
-		}
-	});
-
-	var mynote = new Note({
-		name: (new Date()).toLocaleTimeString(),
-		_id: 123456
-	});
-
-	mynote.set('name', 'note1');
-}
-
-function BackboneCollection(Backbone) {
-
-	var myModel = Backbone.Model.extend({
-		say: function() { console.log('Hi, I am ' + this.name) }
-	});
-	
-	var myCollection = Backbone.Collection.extend({
-		model: myModel,
-		initialize: function () {
-			this.bind(this);
-			this.setElement(this.at(0));
-		},
-		comparator: function (model) {
-			return model.get("id");
-		},
-		getElement: function () {
-			return this.currentElement;
-		},
-		setElement: function (model) {
-			this.currentElement = model;
-		},
-		next: function () {
-			this.setElement(this.at(this.indexOf(this.getElement()) + 1));
-			return this;
-		},
-		prev: function () {
-			this.setElement(this.at(this.indexOf(this.getElement()) - 1));
-			return this;
-		}
-	});
-
-	var collection1 = new myCollection([
-		{ name: 'person1' },
-		{ name: 'person2' },
-		{ name: 'person3' }
-	]);
-
-	console.log(collection1);
-
-	var Book = Backbone.Model.extend({ urlRoot: '/api/backbone?book' });
-	var book1 = new Book({ name:'my first book', author:'zhiping' });
-	var book2 = new Book({ name:'my first book', author:'zhiping' });
-	var book3 = new Book({ name:'my first book', author:'zhiping' });
-	console.log(book1, book1.isNew());
-	//book1.save();
-	//book2.save();
-	//book3.save();
-	//book1.fetch();
 }

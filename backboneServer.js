@@ -2,10 +2,7 @@ module.exports = function(filename){
 	var url = require('url'),
 		dataManipulator = new (require('./InitDataBase.js'))(filename);
 
-	function createFromChunk(request, response) {
-		var urlInfo = url.parse(request.url, true),
-			objectType  = urlInfo.search.split('?')[1];
-
+	function createFromChunk(objectType, response) {
 		return function(chunk) {
 			var obj = JSON.parse(chunk.toString('utf8'));
 			dataManipulator.write(objectType, obj);
@@ -17,9 +14,10 @@ module.exports = function(filename){
 	}
 
 	function requestHandle(request, response) {
-		var urlInfo = url.parse(request.url, true);
+		var urlInfo = url.parse(request.url, true),
+			objectType  = urlInfo.search.split('?')[1];
 
-		(request.method === 'POST') && request.on('data', createFromChunk(request, response));
+		(request.method === 'POST') && request.on('data', createFromChunk(objectType, response));
 
 		(request.method === 'GET') && (function() {
 			response.writeHead(200, { 'Content-Type': 'application/json' });
