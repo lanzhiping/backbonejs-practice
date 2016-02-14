@@ -17,9 +17,9 @@ function BackboneRouter(Backbone){
 	var router = Backbone.Router.extend({
 
 		routes: {
-			'home':                 'home',// #home
+			'home':                 'home',
 			'like': 				'like',
-			'login/:loginAccount':  'login',// #login/lannano
+			'login/:loginAccount':  'login',
 			'*actions': 			'defaultRoute'
 		},
 
@@ -84,12 +84,11 @@ function BackboneView(Backbone) {
 			? this.$el.removeClass(args[1]).addClass(args[0])
 			: this.$el.removeClass(args[0]).addClass(args[1]);
 			
-			this.listenTo(args[3], 'change:' + args[2] +' route', 
+			this.listenTo(args[3], 'change:' + args[2],
 				function(routeName){
 					args[3][args[2]]
 					? this.$el.removeClass(args[1]).addClass(args[0])
 					: this.$el.removeClass(args[0]).addClass(args[1]);
-					this.$el.toggleClass(args[0], this.$el[0].className.indexOf(routeName)>-1);
 				}
 			);
 		}
@@ -97,18 +96,19 @@ function BackboneView(Backbone) {
 
 	new iconButton({
 		iconClass:'icon-left icon-homefill',
-		toggleClass:['actived','','', app.router] ,
 		click:function(){app.router.navigate('home', {trigger: true})}	});
 
 	new iconButton({
 		iconClass:'icon-left icon-likefill', 
-		toggleClass:['actived','','', app.router] ,
 		click:function(){app.router.navigate('like', {trigger: true})}	});
 
 	new iconButton({
 		iconClass: 'icon-right',
-		toggleClass: ['icon-weibo', 'icon-close2', 'isLogined', app.router], 
-		click:function(){app.router.navigate('login/lannano', {trigger: true})}	});
+		toggleClass: ['icon-close2', 'icon-weibo', 'isLogined', app.router], 
+		click:function(){
+			app.router.isLogined = false; 
+			app.router.trigger('change:isLogined');}
+		});
 }
 
 function BackboneModel(Backbone) {
@@ -128,31 +128,6 @@ function BackboneModel(Backbone) {
 	});
 
 	mynote.set('name', 'note1');
-}
-
-function BackboneEvents(Backbone) {
-	//var person = function (name) {
-	//    this.name = name;
-	//    return this;
-	//};
-	//person.prototype = Backbone.Events;
-	//var erik = new person('erik');
-	//erik.on('say', function () { console.log('my name is ' + this.name); });
-	//erik.trigger('say');
-
-	var erik = { say: function () { console.log(this.name); } };
-	_.extend(erik, Backbone.Events);
-	erik.on({
-		'say:name': function (name) { console.log('my name is ' + name); this.name = name; },
-		'say:greet': function () { console.log('hi there!'); }
-	});
-
-	var friendOfErik = {};
-	friendOfErik.say = function () { console.log('hello!'); };
-	_.extend(friendOfErik, Backbone.Events);
-	friendOfErik.listenTo(erik, 'say:name', friendOfErik.say);
-
-	erik.trigger('say:greet say:name', 'erik');
 }
 
 function BackboneCollection(Backbone) {

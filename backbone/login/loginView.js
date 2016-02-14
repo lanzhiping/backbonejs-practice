@@ -5,15 +5,17 @@ var app = app || {};
 (function(Backbone){
 
 	app.loginView = Backbone.View.extend({
-		el: '#container',
+		container: $('#container'),
 		events: {'click #signIn': 'signIn'},
 		template: _templates['login_template'],
+
 		initialize: function(){
 			this.render();
 		},
 
 		render: function(){
 			this.$el.html(this.template());
+			this.container.html(this.$el);
 			return this;
 			//A good convention is to return this at the end of render to enable chained calls.
 		},

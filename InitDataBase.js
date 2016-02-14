@@ -32,9 +32,13 @@ module.exports = function InitDataBase(filename) {
 					return ;
 				});
 			} else {
-				var index = 0;
-				rootObject[objectType].sort(compare).forEach(function(item){ if(item.id > index) return; }); // todo: id is the same
-				obj.id = index.toString();
+				var hightestContinousElement = rootObject[objectType]
+											.sort(compare)
+											.filter(function(item, index){ return item.id == index})
+											.pop();
+
+				obj.id = hightestContinousElement && rootObject[objectType].sort(compare)[0].id === 0
+					   ? hightestContinousElement.id + 1 : 0;
 				rootObject[objectType].push(obj);
 			}
 			
