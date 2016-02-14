@@ -11,13 +11,21 @@ var app = app || {};
 			'click .todo-add': 'addTodo',
 		},
 		initialize: function(){
-			this.render();
+			this.listenTo(app.todos,'reset',this.render());
 			this.$input = this.$el.find('input');
-			this.$todos = this.$el.find('#todo-container');
+			this.$todos = this.$('div#todo-container');
+			app.todos.fetch({reset:true});
 		},
 		render: function(){
 			this.$el.html(this.template());
-			this.container.html(this.$el);
+			this.container.html(this.el);
+			return this.renderTodoList;
+		},
+		renderTodoList: function(){
+			for(var index in app.todos.models){
+				var todo = new app.todoView(app.todos.models[index].attributes);
+				this.$todos.append(todo.el);
+			}
 			return this;
 		},
 		addTodo: function(){

@@ -13,9 +13,10 @@ module.exports = function InitDataBase(filename) {
 		var stats = fs.statSync(filePath);
 		stats.isDirectory() && (function(){throw '"' + filename + '" is not vaild.';})();
 
-		this.read = function () {
-			console.log('read');
-			return fs.readFileSync(filePath, 'utf8');
+		this.read = function (objectType) {
+			console.log('read: ' + objectType);
+			var fileContent = fs.readFileSync(filePath, 'utf8');
+			return JSON.parse(fileContent)[objectType] || {};
 		};
 
 		this.write = function (objectType, obj) {
