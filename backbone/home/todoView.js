@@ -3,17 +3,16 @@ var app = app || {};
 
 app.todoView = Backbone.View.extend({
 	template: _templates['todo_template'],
+	events:{'click .icon-close2': 'deleteButton'},
 	initialize: function(options){
 		this.model = new app.todoModel(options);
-		this.listenTo(this.model, 'change', this.render);
-		this.model.trigger('change');
+		!this.model.isNew() && this.render();
 	},
 	render: function(){
 		this.setElement(this.template(this.model.attributes));
 		return this;
 	},
-	save: function(){
-		this.model.save();
+	deleteButton: function(){
+		this.model.destroy();
 	}
 });
-

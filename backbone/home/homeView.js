@@ -22,6 +22,7 @@ var app = app || {};
 			return this.renderTodoList;
 		},
 		renderTodoList: function(){
+			this.$todos.empty();
 			for(var index in app.todos.models){
 				var todo = new app.todoView(app.todos.models[index].attributes);
 				this.$todos.append(todo.el);
@@ -30,9 +31,8 @@ var app = app || {};
 		},
 		addTodo: function(){
 			var todoContent = this.$input.val();
-			var todo = new app.todoView({content:todoContent});
-			todo.save();
-			this.$todos.append(todo.el);
+			var todo = new app.todoModel({content:todoContent});
+			todo.save(todo.attributes, {wait:true});
 			this.$input.val('');
 		}
 	});
