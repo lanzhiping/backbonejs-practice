@@ -17,8 +17,6 @@ module.exports = function(filename){
 		var urlInfo = url.parse(request.url, true),
 			objectType  = urlInfo.search.split('?')[1].split('/')[0],
 			id = urlInfo.search.split('?')[1].split('/')[1];
-		
-		console.log(urlInfo, objectType, request.method);
 
 		(request.method === 'POST') && request.on('data', createFromChunk(objectType, response));
 
