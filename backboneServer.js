@@ -18,7 +18,8 @@ module.exports = function(filename){
 			objectType  = urlInfo.search.split('?')[1].split('/')[0],
 			id = urlInfo.search.split('?')[1].split('/')[1];
 
-		(request.method === 'POST') && request.on('data', createFromChunk(objectType, response));
+		(request.method === 'POST' || request.method === 'PUT') 
+		&& request.on('data', createFromChunk(objectType, response));
 
 		(request.method === 'GET') && (function() {
 			response.writeHead(200, { 'Content-Type': 'application/json' });

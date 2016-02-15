@@ -1,4 +1,19 @@
 <div class="todo-content">
-	<span ><%- id + 1 %>. <%- content %></span>
+	<style type="text/css">
+		#todo-edit, .icon-save, .icon-close2.edit, span.edit{
+			display: none;
+		}
+		input#todo-edit.edit{
+			display: inline-block;
+			width: 85%;
+		}
+		.icon-save.edit{
+			display: block;
+		}
+
+	</style>
+	<span><%- id + 1 %>. <%- content %></span>
+	<input id="todo-edit"/>
 	<i class="iconfont icon-right icon-close2 pull-right"></i>
+	<i class="iconfont icon-right icon-save pull-right"></i>
 </div>

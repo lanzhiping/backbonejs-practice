@@ -9,6 +9,7 @@ app.todoModel = Backbone.Model.extend({
 		this.on('destroy', this.deleteFromCollection);
 	},
 	addToCollection:function(model){
+		console.log('change')
 		app.todos.add([model]);
 		app.todos.trigger('reset');
 	},
