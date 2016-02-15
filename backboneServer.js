@@ -8,20 +8,31 @@ module.exports = function(filename){
 			dataManipulator.write(objectType, obj);
 
 			response.writeHead(200, { 'Content-Type': 'application/json' });
-			response.write('success');
+			response.write(JSON.stringify(obj));
 			response.end();
 		}
 	}
 
 	function requestHandle(request, response) {
 		var urlInfo = url.parse(request.url, true),
-			objectType  = urlInfo.search.split('?')[1];
+			objectType  = urlInfo.search.split('?')[1].split('/')[0],
+			id = urlInfo.search.split('?')[1].split('/')[1];
+		
+		console.log(urlInfo, objectType, request.method);
 
 		(request.method === 'POST') && request.on('data', createFromChunk(objectType, response));
 
 		(request.method === 'GET') && (function() {
 			response.writeHead(200, { 'Content-Type': 'application/json' });
 			response.write(JSON.stringify(dataManipulator.read(objectType) || []));
+			response.end();
+		})();
+
+		(request.method === 'DELETE') && (function(){
+			var result = dataManipulator.deleteByIdAndType(objectType, id);
+			
+			response.writeHead((result? 200:204), { 'Content-Type': 'application/json' });
+			response.write(JSON.stringify({result: (result?'success':'No Content')}));
 			response.end();
 		})();
 	}

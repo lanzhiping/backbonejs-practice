@@ -20,11 +20,33 @@ module.exports = function InitDataBase(filename) {
 			return objectType ? rootObject[objectType] : rootObject;
 		};
 
+		this.deleteByIdAndType = function(objectType, id){
+			console.log('delete type:' + objectType + ' id:' + id);
+			var rootObject = this.read(),
+				updateObjectSet = rootObject[objectType];
+
+			if(!updateObjectSet){
+				console.log('objects of ' +objectType+' doesnt exist.');
+				return false;
+			}
+			var deleteObject = updateObjectSet.filter(function(item){return item.id === id});
+			if (!deleteObject) {
+				console.log(
+					'the object type:{0} id:{1} doesnt exist.'
+					.replace('{0}', objectType)
+					.replace('{1}',id));
+				return false;
+			};
+
+			rootObject[objectType] = updateObjectSet.filter(function(item){return item.id != id});
+			fs.writeFileSync(filePath, JSON.stringify(rootObject));
+			return true;
+		};
+
 		this.write = function (objectType, obj) {
 			console.log('write: ' + objectType);
 
 			var rootObject = this.read(); // todo: should be implement when init
-			//var	rootObject = fileContent.length == 0 ? {} : JSON.parse(fileContent);
 			if(rootObject[objectType] == undefined) rootObject[objectType] = [];
 
 			if(obj.id != undefined) {
