@@ -53,7 +53,7 @@ function BackboneRouter(Backbone){
 		}
 	});
 
-	app.router = new router({isLogined: true});
+	app.router = new router({isLogined: false});
 	Backbone.history.start();
 }
 
