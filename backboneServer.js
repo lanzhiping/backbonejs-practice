@@ -21,7 +21,7 @@ module.exports = function(filename){
 
 		(request.method === 'GET') && (function() {
 			response.writeHead(200, { 'Content-Type': 'application/json' });
-			response.write(JSON.stringify(dataManipulator.read(objectType)));
+			response.write(JSON.stringify(dataManipulator.read(objectType) || []));
 			response.end();
 		})();
 	}

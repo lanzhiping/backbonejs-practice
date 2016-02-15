@@ -14,16 +14,17 @@ module.exports = function InitDataBase(filename) {
 		stats.isDirectory() && (function(){throw '"' + filename + '" is not vaild.';})();
 
 		this.read = function (objectType) {
-			console.log('read: ' + objectType);
+			console.log('read: ' + (objectType || 'all'));
 			var fileContent = fs.readFileSync(filePath, 'utf8');
-			return JSON.parse(fileContent)[objectType] || {};
+			var	rootObject = fileContent.length == 0 ? {} : JSON.parse(fileContent);
+			return objectType ? rootObject[objectType] : rootObject;
 		};
 
 		this.write = function (objectType, obj) {
 			console.log('write: ' + objectType);
 
-			var fileContent = this.read(); // todo: should be implement when init
-			var	rootObject = fileContent.length == 0 ? {} : JSON.parse(fileContent);
+			var rootObject = this.read(); // todo: should be implement when init
+			//var	rootObject = fileContent.length == 0 ? {} : JSON.parse(fileContent);
 			if(rootObject[objectType] == undefined) rootObject[objectType] = [];
 
 			if(obj.id != undefined) {
