@@ -31,6 +31,7 @@ var app = app || {};
 		addTodo: function(){
 			var todoContent = this.$input.val();
 			var todo = new app.todoView({content:todoContent});
+			todo.save();
 			this.$todos.append(todo.el);
 			this.$input.val('');
 		}
