@@ -15,8 +15,8 @@
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
 }
-
-.icon-weibo:before { content: "\e6c4"; }
+.icon-save:before { content: "\e82b"; }
 .icon-homefill:before { content: "\e6e7"; }
-.icon-close2:before { content: "\e6c3"; }
 .icon-likefill:before { content: "\e6ea"; }
+.icon-close2:before { content: "\e6c3"; }
+.icon-weibo:before { content: "\e6c4"; }

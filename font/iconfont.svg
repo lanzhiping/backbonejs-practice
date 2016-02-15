@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
 <svg xmlns="http://www.w3.org/2000/svg">
 <metadata>
-Created by FontForge 20120731 at Thu Feb 11 23:36:04 2016
+Created by FontForge 20120731 at Mon Feb 15 14:57:10 2016
  By Ads
 </metadata>
 <defs>
@@ -16,10 +16,10 @@ Created by FontForge 20120731 at Thu Feb 11 23:36:04 2016
     ascent="896"
     descent="-128"
     x-height="792"
-    bbox="31 -32 994.364 832.75"
+    bbox="31 -84 994.364 832.75"
     underline-thickness="50"
     underline-position="-100"
-    unicode-range="U+0078-E6EA"
+    unicode-range="U+0078-E82B"
   />
 <missing-glyph horiz-adv-x="374" 
 d="M34 0v682h272v-682h-272zM68 34h204v614h-204v-614z" />
@@ -47,5 +47,9 @@ d="M982 492l-409 320q-17 14 -39.5 18.5t-45 0t-39.5 -18.5l-406 -321q-7 -5 -10 -13
 h-64h-64v67v112q0 31 25 54t71 23t71 -23t25 -54v-112z" />
     <glyph glyph-name="uniE6EA" unicode="&#xe6ea;" 
 d="M736 768q-33 0 -64.5 -8t-60 -24t-51.5 -38q-3 -2 -11 -10.5t-17 -17.5l-20 -20l-47 47q-74 71 -177 71q-106 0 -181 -75t-75 -181q0 -100 76 -182l317 -321q42 -41 87 -41t87 42l316 320l3 2q25 31 37.5 49.5t24.5 54t12 76.5q0 106 -75 181t-181 75z" />
+    <glyph glyph-name="uniE82B" unicode="&#xe82b;" 
+d="M874 514l-146 147q-9 10 -25 16.5t-30 6.5h-481q-27 0 -45.5 -18.5t-18.5 -45.5v-640q0 -27 18.5 -45.5t45.5 -18.5h640q27 0 45.5 18.5t18.5 45.5v479q0 13 -6.5 29t-15.5 26zM320 620h256v-176q0 -7 -4.5 -11.5t-11.5 -4.5h-224q-7 0 -11.5 4.5t-4.5 11.5v176zM704 -20
+h-384v176q0 4 2 8t6 6t8 2h352q7 0 11.5 -4.5t4.5 -11.5v-176zM832 12q0 -13 -9.5 -22.5t-22.5 -9.5h-32v224q0 13 -9.5 22.5t-22.5 9.5h-448q-13 0 -22.5 -9.5t-9.5 -22.5v-224h-32q-13 0 -22.5 9.5t-9.5 22.5v576q0 9 4.5 16t11.5 11.5t16 4.5h32v-224q0 -13 9.5 -22.5
+t22.5 -9.5h320q13 0 22.5 9.5t9.5 22.5v224h17q16 0 27 -11l137 -139q2 -2 4 -5.5t3.5 -7t2.5 -7.5t1 -7v-431zM480 460q13 0 22.5 9.5t9.5 22.5v64q0 13 -9.5 22.5t-22.5 9.5t-22.5 -9.5t-9.5 -22.5v-64q0 -13 9.5 -22.5t22.5 -9.5z" />
   </font>
 </defs></svg>
