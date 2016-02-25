@@ -96,5 +96,5 @@
 	grunt.loadNpmTasks('grunt-contrib-jasmine');
 	grunt.loadNpmTasks('grunt-underscore-singlefile');
 
-	grunt.registerTask('default', ['uglify', 'concat', 'watch']);
+	grunt.registerTask('default', ['uglify', 'concat', 'underscore_singlefile', 'watch']);
 };
