@@ -1,4 +1,5 @@
-module.exports = function(areaString){
+module.exports = function (areaString) {
+
 	var	fs = require('fs'),
 		url = require('url'),
 		path = require('path'),

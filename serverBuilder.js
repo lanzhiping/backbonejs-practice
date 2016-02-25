@@ -1,7 +1,15 @@
 ﻿'use strict';
 
-var http = require('http'),
-	HttpRequestHandler = require('./HttpRequestHandler.js');
+var http = require('http');
+
+function defaultRequestHander(req, res) {
+    var logTemplate = 'In comming url: {0}.';
+    console.log(logTemplate.replace('{0}', req.url));
+
+    res.withHandler(200, { "Content-Type": "text/plain" });
+    res.with('hello world!');
+    res.end();
+}
 
 function serverBuilder() {
     this.withPort = function (portNumber) {
@@ -28,8 +36,8 @@ function serverBuilder() {
     };
 
     this.start = function () {
-        this.server.listen(this.port);
+        this.server.listen(this.portNumber);
     };
 }
 
-module.export = serverBuilder;
+module.exports = new serverBuilder();

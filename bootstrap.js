@@ -2,17 +2,14 @@
 
 var port = 80,
     http = require('http'),
-	serverBuilder = require('./serverBuilder.js');
+	serverBuilder = require('./serverBuilder.js'),
+    httpRequestHandler = require('./HttpRequestHandler.js');
 
-(function (http) {
-
+(function () {
     serverBuilder
         .withPort(port)
-        .withHandler(HttpRequestHandler('backbone'))
-        .onSuccess(function () { console.log('server is listening at' + port) })
+        .withHandler(httpRequestHandler('backbone'))
+        .onSuccess(function () { console.log('server is listening at: ' + port) })
         .build()
         .start();
-
-    //http.createServer(HttpRequestHandler('backbone')).listen(80);
-    //console.log("Server is listening");
-})(http);
+})();
