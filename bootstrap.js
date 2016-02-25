@@ -1,9 +1,8 @@
 ﻿'use strict';
 
 var port = 80,
-    http = require('http'),
-	serverBuilder = require('./serverBuilder.js'),
-    httpRequestHandler = require('./HttpRequestHandler.js');
+	serverBuilder = require('./serverBuilder'),
+    httpRequestHandler = require('./httpRequestHandler');
 
 (function () {
     serverBuilder
