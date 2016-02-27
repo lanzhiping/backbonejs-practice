@@ -6,3 +6,6 @@ npm-debug.log
 # jasmine runner
 .grunt/grunt-contrib-jasmine
 _SpecRunner.html
+
+# data text file
+db/test.js
