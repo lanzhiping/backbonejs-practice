@@ -1,17 +1,26 @@
-module.exports = function(filename){
-	var url = require('url'),
-		dataManipulator = new (require('./InitDataBase.js'))(filename);
+var url = require('url'),
+    dataManipulatorBuilder = require('./initDataBase.js');
 
-	function createFromChunk(objectType, response) {
-		return function(chunk) {
-			var obj = JSON.parse(chunk.toString('utf8'));
-			dataManipulator.write(objectType, obj);
+function debug(response, obj) {
+    response.writeHead(200, { 'Content-Type': 'application/json' });
+    response.write(JSON.stringify(obj));
+    response.end();
+}
 
-			response.writeHead(200, { 'Content-Type': 'application/json' });
-			response.write(JSON.stringify(obj));
-			response.end();
-		}
-	}
+function createFromChunk(dataManipulator, objectType, response) {
+    return function (chunk) {
+        var obj = JSON.parse(chunk.toString('utf8'));
+
+        dataManipulator.write(objectType, obj);
+        response.writeHead(200, { 'Content-Type': 'application/json' });
+        response.write(JSON.stringify(obj));
+        response.end();
+    }
+}
+
+function backboneServer(filename) {
+
+    var dataManipulator = new dataManipulatorBuilder(filename);
 
 	function requestHandle(request, response) {
 		var urlInfo = url.parse(request.url, true),
@@ -19,7 +28,7 @@ module.exports = function(filename){
 			id = urlInfo.search.split('?')[1].split('/')[1];
 
 		(request.method === 'POST' || request.method === 'PUT') 
-		&& request.on('data', createFromChunk(objectType, response));
+		&& request.on('data', createFromChunk(dataManipulator, objectType, response));
 
 		(request.method === 'GET') && (function() {
 			response.writeHead(200, { 'Content-Type': 'application/json' });
@@ -39,8 +48,4 @@ module.exports = function(filename){
 	return requestHandle;
 }
 
-function debug(response, obj) {
-	response.writeHead(200, { 'Content-Type': 'application/json' });
-	response.write(JSON.stringify(obj));
-	response.end();
-}
+module.exports = backboneServer;

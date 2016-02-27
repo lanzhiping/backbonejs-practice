@@ -3,7 +3,6 @@
 var fs = require('fs'),
     url = require('url'),
     path = require('path'),
-    appStartPage = './' + areaString + '/index.html',
     backboneServer = new (require('./backboneServer.js'))('test');
 
 function errResponse(response) {
@@ -41,6 +40,7 @@ function fileType(filename) {
 }
 
 function httpRequestHandler(areaString) {
+    var appStartPage = './' + areaString + '/index.html';
 
     return function (request, response) {
         console.log("incoming request: " + request.url);
