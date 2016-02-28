@@ -6,7 +6,8 @@
         "pm2-l": "pm2 list",
         "pm2-m": "pm2 monit",
         "pm2-d": "pm2 delete",
-        "pm2-s": "pm2 stop"
+        "pm2-s": "pm2 stop",
+        "pm2-log":"pm2 logs"
     },
     "dependencies": {
         "backbone": "1.2.3",
