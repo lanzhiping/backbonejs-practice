@@ -1,100 +1,40 @@
-﻿module.exports = function(grunt) {
+﻿"use strict";
 
-	var libs = ['node_modules/underscore/underscore-min.js'
-			   ,'node_modules/jquery/dist/jquery.min.js'
-			   ,'node_modules/backbone/backbone-min.js'
-			   ,'node_modules/backbone.marionette/lib/backbone.marionette.min.js'
-			   ,'node_modules/requirejs/require.js'
-			   ],
-		libsOut = './dist/modules.js',
-		specs = ['**.spec.js'],
-		src = ['backbone/*/*.js', 'backbone/*.js', '!backbone/**/*.spec.js'],
-		srcOut = './dist/main.js';
+var gruntConfig = require("./grunt/gruntTaskConfig.js"),
+    packageJson, packages, gruntPackages;
 
+function initGrunt(grunt) {
+    packageJson = grunt.file.readJSON('package.json');
+    
+    packages = Object.keys(packageJson.devDependencies);
+    
+    gruntPackages = packages.filter(function(packageName) {
+        return packageName.indexOf("grunt-") === 0 && packageName !== "grunt-cli";
+    });
+}
 
+function initGruntConfig(grunt) {
+    grunt.initConfig(gruntConfig.config);
+}
 
-	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'),
+function loadPackages(grunt) {
+    gruntPackages.forEach(function(packageName) {
+        grunt.loadNpmTasks(packageName);
+    });
+}
 
-		watch: {
-			js:{
-				files: ['*.js', 'backbone/**/*.js', '!dist/*'],
-				tasks: ['uglify']	
-			},
-			html:{
-				files: ['*/*/*.html', '!dist/*'],
-				tasks: ['underscore_singlefile']		
-			}
-		},
+function resigterTasks(grunt) {
+    Object.keys(gruntConfig.tasks)
+        .forEach(function(taskName) {
+            grunt.registerTask(taskName, gruntConfig.tasks[taskName]);
+        });
+}
 
-		uglify: {
-			dev: {
-				files: {
-					'dist/main.js': src
-				}
-			}
-		},
+function gruntfile(grunt) {
+    initGrunt(grunt);
+    initGruntConfig(grunt);
+    loadPackages(grunt);
+    resigterTasks(grunt);
+}
 
-		concat: {
-			depen: {
-				files: {
-					'dist/modules.js': libs
-				}
-			}
-		},
-
-		iisexpress: {
-			server: {
-				options: {
-					port: 3000,
-					open: true,
-					openPath: '/backbone/index.html'
-				}
-			},
-
-			test: {
-				options: {
-					port: 8000,
-					keepalive: true,
-					open: true,
-					path: './',
-					openPath: '/_SpecRunner.html'
-				}
-			}
-		},
-
-		jasmine: {
-	    	appTest: {
-		      	src: srcOut,
-		      	options: {
-		      		keepRunner: true,
-		      		host : 'http://localhost:8000/',
-		        	specs: specs,
-		        	vendor: libsOut
-		    	}
-	    	}
-	    },
-
-	    underscore_singlefile: {
-	        options : {
-	            name : '_templates',
-	            separartor : '\n\n'
-	        },
-	        build: {
-	            src: 'backbone/*/*.html',
-	            dest: 'dist/tpls.js'
-	        }
-	    }
-
-	});
-
-
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-iisexpress');
-	grunt.loadNpmTasks('grunt-contrib-jasmine');
-	grunt.loadNpmTasks('grunt-underscore-singlefile');
-
-	grunt.registerTask('default', ['uglify', 'concat', 'underscore_singlefile', 'watch']);
-};
+module.exports = gruntfile;
