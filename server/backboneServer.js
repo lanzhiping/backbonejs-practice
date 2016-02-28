@@ -1,5 +1,5 @@
 var url = require('url'),
-    dataManipulatorBuilder = require('./initDataBase.js');
+    DataManipulatorBuilder = require('./initDataBase.js');
 
 function debug(response, obj) {
     response.writeHead(200, { 'Content-Type': 'application/json' });
@@ -20,9 +20,12 @@ function createFromChunk(dataManipulator, objectType, response) {
 
 function backboneServer(filename) {
 
-    var dataManipulator = new dataManipulatorBuilder(filename);
+    var dataManipulator = new DataManipulatorBuilder(filename);
 
 	function requestHandle(request, response) {
+        
+        console.log('are you in backbone server or not?')
+        
 		var urlInfo = url.parse(request.url, true),
 			objectType  = urlInfo.search.split('?')[1].split('/')[0],
 			id = urlInfo.search.split('?')[1].split('/')[1];
