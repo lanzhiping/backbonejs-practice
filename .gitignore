@@ -1,3 +1,6 @@
+# visual studio code setting
+.vscode/
+
 # packages
 node_modules/
 dist/
