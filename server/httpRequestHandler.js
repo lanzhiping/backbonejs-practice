@@ -3,7 +3,7 @@
 var fs = require('fs'),
     url = require('url'),
     path = require('path'),
-    backboneServer = new (require('./backboneServer.js'))('test');
+    backboneServer = (require("./backboneServer.js"))('test');
 
 function errResponse(response) {
     response.writeHead(404, { "Content-Type": "text/plain" });
