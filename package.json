@@ -1,25 +1,19 @@
 {
-    "name": "backbone-practice"
-
-    ,
+    "name": "backbone-practice",
     "scripts": {
         "grunt": "grunt",
-        "startpm2": "pm2 start bootstrap.js",
+        "pm2s": "pm2 start bootstrap.js",
         "pm2-l": "pm2 list",
         "pm2-m": "pm2 monit",
         "pm2-d": "pm2 delete",
         "pm2-s": "pm2 stop"
-    }
-
-    ,
+    },
     "dependencies": {
         "backbone": "1.2.3",
         "underscore": "1.8.3",
         "backbone.marionette": "2.4.4",
         "jquery": "2.2.0"
-    }
-
-    ,
+    },
     "devDependencies": {
         "pm2": "1.0.0",
         "express": "4.13.4",

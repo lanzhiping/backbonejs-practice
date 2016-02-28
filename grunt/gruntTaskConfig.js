@@ -7,7 +7,7 @@ var paths = require("./paths.js"),
 
             "watch": {
                 "js": {
-                    "files": ["backbone/*.js", "!dist/*"],
+                    "files": ["grunt/*.js", "backbone/**/*.js", "!dist/*"],
                     "tasks": ["uglify"]
                 },
                 "html": {
@@ -45,7 +45,7 @@ var paths = require("./paths.js"),
         },
 
         "tasks": {
-            "default": ["uglify", "concat", "underscore_singlefile"]// , "watch"]
+            "default": ["uglify", "concat", "underscore_singlefile", "watch"]
         }
     };
 
