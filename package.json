@@ -1,8 +1,10 @@
 {
     "name": "backbone-practice",
+
     "scripts": {
         "start": "node bootstrap.js",
         "grunt": "grunt",
+        "p": "pm2",
         "pm2s": "pm2 start bootstrap.js",
         "pm2-l": "pm2 list",
         "pm2-m": "pm2 monit",
@@ -10,15 +12,18 @@
         "pm2-s": "pm2 stop",
         "pm2-log":"pm2 logs"
     },
+
     "dependencies": {
         "backbone": "1.2.3",
         "underscore": "1.8.3",
         "backbone.marionette": "2.4.4",
         "jquery": "2.2.0"
     },
+
     "devDependencies": {
         "pm2": "1.0.0",
         "express": "4.13.4",
+        "body-parser":"1.15.0",
         "grunt": "0.4.5",
         "grunt-cli": "0.1.13",
         "grunt-iisexpress": "0.4.0",
