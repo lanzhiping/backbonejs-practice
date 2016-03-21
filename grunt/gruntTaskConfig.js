@@ -1,21 +1,90 @@
 "use strict";
 
 var paths = require("./paths.js"),
-    gruntTaskConfig = {
+    linterConfig = {
+        "files": ["server/DataBase.spec.js", "server/DataBase.js"], // todo: use paths to config
+        "globals": {
+            "jQuery": true,
+            "Marionette": true,
+            "Backbone": true
+        },
+        "options": {
+            "junit": "out/junit.xml",
+            "log": "out/lint.log",
+            "errorsOnly": true
+        }
+    },
 
-        "config": {
+    watchConfig = {
+        "js": {
+            "files": ["grunt/*.js", "backbone/**/*.js", "!dist/*"], // todo: use paths to config
+            "tasks": ["uglify", "linter"]
+        },
+        "html": {
+            "files": ["*/*/*.html", "!dist/*"],
+            "tasks": ["underscore_singlefile"]
+        },
+        "serverSrc": {
+            "files": [paths.serverjs, paths.serverspecjs],
+            "tasks": ["browserify"]
+        }
+    },
 
-            "watch": {
-                "js": {
-                    "files": ["grunt/*.js", "backbone/**/*.js", "!dist/*"],
-                    "tasks": ["uglify"]
-                },
-                "html": {
-                    "files": ["*/*/*.html", "!dist/*"],
-                    "tasks": ["underscore_singlefile"]
+    jasmineNodejsConfig = {
+        "serverUnitTest": {
+            "specs": ["./server/*.js"],
+            "helpers": ["./server/*.js"],
+        },
+        "options": {
+            "seed": null,
+            "useHelpers": true,
+            "traceFatal": true,
+            "stopOnFailure": true,
+            "defaultTimeout": 5000,
+            "specNameSuffix": ".spec.js",
+            "helperNameSuffix": ".helper.js",
+            "reporters": {
+                "console": {
+                    "colors": true,
+                    "activity": true,
+                    "verbosity": true,
+                    "cleanStack": true,
+                    "listStyle": "indent"
                 }
-            },
+            }
+        }
+    },
 
+    karmaConfig = {
+        "appUT": {
+            "browsers": ["phantomjs"],
+            "frameworks": ["jasmine"],
+            "options": {
+                // todo: add src files and spec files
+            }
+        },
+        "appUIOnline": {
+            "port": 9999,
+            "browsers": ["chrome"],
+            "frameworks": ["jasmine"],
+            "options": {
+                // todo: add src files and spec files
+            }
+        }
+    },
+
+    webpackConfig = {
+        "client": {
+            "entry": ["backbone/app.js"],
+            "output": {
+                "filename": "[name].js",
+                "path": "./dist"
+            }
+        }
+    },
+
+    gruntTaskConfig = {
+        "config": {
             "uglify": {
                 "appjs": {
                     "files": {
@@ -41,45 +110,19 @@ var paths = require("./paths.js"),
                     "src": "backbone/*/*.html",
                     "dest": "dist/tpls.js"
                 }
-            }
+            },
+
+            "karma": karmaConfig,
+            "watch": watchConfig,
+            "linter": linterConfig,
+            "webpack": webpackConfig,
+            "jasmine_nodejs": jasmineNodejsConfig
         },
 
         "tasks": {
-            "default": ["uglify", "concat", "underscore_singlefile", "watch"]
+            "default": ["uglify", "concat", "underscore_singlefile", "watch"],
+            "serverUT": ["jasmine_nodejs:serverUnitTest"]
         }
     };
 
 module.exports = gruntTaskConfig;
-
-// something might useful tomorrow
-
-// "jasmine": {
-//     "appTest": {
-//         "src": srcOut,
-//         "options": {
-//             "keepRunner": true,
-//             "host": "http://localhost:8000/",
-//             "specs": specs,
-//             "vendor": libsOut
-//         }
-//     }
-// },
-
-// iisexpress: {
-//     server: {
-//         options: {
-//             port: 3000,
-//             open: true,
-//             openPath: "/backbone/index.html"
-//         }
-//     },
-//     test: {
-//         options: {
-//             port: 8000,
-//             keepalive: true,
-//             open: true,
-//             path: "./",
-//             openPath: "/_SpecRunner.html"
-//         }
-//     }
-// },

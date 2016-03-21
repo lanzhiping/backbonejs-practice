@@ -1,6 +1,9 @@
 # visual studio code setting
 .vscode/
 
+# linter report
+out/
+
 # packages
 node_modules/
 dist/
