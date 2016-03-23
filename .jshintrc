@@ -1,0 +1,32 @@
+{
+  "curly"       : true,
+  "eqeqeq"      : true,
+  "immed"       : true,
+  "latedef"     : true,
+  "newcap"      : true,
+  "noarg"       : true,
+  "sub"         : true,
+  "undef"       : true,
+  "boss"        : true,
+  "eqnull"      : true,
+  "node"        : true,
+  "camelcase"   : true,
+  "forin"   : true,
+  "freeze"   : true,
+  "funcscope"   : true,
+  "iterator"   : true,
+  "quotmark"   : true,
+  "strict"   : true,
+  "maxdepth"   : 3,
+  "maxparams"   : 5,
+
+  "globals" : {
+    "it"         : false,
+    "describe"   : false,
+    "jasmine"   : false,
+    "beforeEach" : false,
+    "afterEach"  : false,
+    "expect"     : false,
+    "spyOn"      : false
+  }
+}
