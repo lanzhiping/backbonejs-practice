@@ -2,7 +2,7 @@
 
 var paths = require("./paths.js"),
     linterConfig = {
-        "files": ["server/DataBase.spec.js", "server/DataBase.js"], // todo: use paths to config
+        "files": [paths.serverjs, paths.serverspecjs],
         "globals": {
             "jQuery": true,
             "Marionette": true,
@@ -12,6 +12,15 @@ var paths = require("./paths.js"),
             "junit": "out/junit.xml",
             "log": "out/lint.log",
             "errorsOnly": true
+        }
+    },
+
+    jscsConfig = {
+       "src": [paths.serverjs, paths.serverspecjs], // todo: need to replace by **.js
+        "options": {
+            "config": ".jscsrc",
+            "fix": true,
+            "requireCurlyBraces": [ "if" ]
         }
     },
 
@@ -115,13 +124,15 @@ var paths = require("./paths.js"),
             "karma": karmaConfig,
             "watch": watchConfig,
             "linter": linterConfig,
+            "jscs": jscsConfig,
             "webpack": webpackConfig,
             "jasmine_nodejs": jasmineNodejsConfig
         },
 
         "tasks": {
             "default": ["uglify", "concat", "underscore_singlefile", "watch"],
-            "serverUT": ["jasmine_nodejs:serverUnitTest"]
+            "serverUT": ["jasmine_nodejs:serverUnitTest"],
+            "checkJs": ["jscs", "linter"]
         }
     };
 

@@ -14,8 +14,8 @@ var paths = {
     "apptest": "backbone/**/*.spec.js",
 
     // server source
-    "serverjs": "./server/DataBase.js",
-    "serverspecjs": "./server/DataBase.spec.js",
+    "serverjs": "./server/databaseFactory.js",
+    "serverspecjs": "./server/databaseFactory.spec.js",
 
     // compiled output js
     "distClientSrc": "./dist/clientsrc.js",
