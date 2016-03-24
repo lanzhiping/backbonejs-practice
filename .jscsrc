@@ -1,9 +1,9 @@
 {
-    "disallowEmptyBlocks": true,
-    "disallowCapitalizedComments": true,
-    "disallowTrailingComma": true,
     "disallowTabs": true,
+    "disallowEmptyBlocks": true,
     "disallowUnusedParams": true,
+    "disallowTrailingComma": true,
+    "disallowCapitalizedComments": true,
     "disallowSpaceAfterObjectKeys": true,
     "disallowSpacesInForStatement": true,
     "disallowSpacesInNamedFunctionExpression": {
@@ -12,11 +12,10 @@
     },
     "disallowSpacesInConditionalExpression": {
         "afterTest": true,
-        "beforeConsequent": true,
         "afterConsequent": true,
-        "beforeAlternate": true
+        "beforeAlternate": true,
+        "beforeConsequent": true
     },
     "disallowKeywordsOnNewLine": ["else"],
     "disallowCurlyBraces": ["while", "for", "do", "with"]
-
 }
