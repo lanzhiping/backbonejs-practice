@@ -1,15 +1,10 @@
 "use strict";
 
 var proxyquire = require("proxyquire"),
-    testHelper = require("./serverTests.helper"),
     fsModuleFactory = require("./testStubs/fsModuleFactory"),
     databaseFactory;
 
 describe("databaseFactory Tests", function () {
-
-    beforeEach(function(){
-        testHelper(jasmine);
-    });
 
     it("should not be null", function () {
         databaseFactory = proxyquire("./databaseFactory", {});

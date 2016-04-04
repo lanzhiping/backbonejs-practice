@@ -2,20 +2,15 @@
     "disallowTabs": true,
     "disallowEmptyBlocks": true,
     "disallowUnusedParams": true,
-    "disallowTrailingComma": true,
-    "disallowCapitalizedComments": true,
-    "disallowSpaceAfterObjectKeys": true,
-    "disallowSpacesInForStatement": true,
-    "disallowSpacesInNamedFunctionExpression": {
+    "requireSpacesInForStatement": true,
+    "requireSpaceAfterBinaryOperators": true,
+    "requireSpacesInNamedFunctionExpression": {
         "beforeOpeningRoundBrace": true,
         "beforeOpeningCurlyBrace": true
     },
-    "disallowSpacesInConditionalExpression": {
-        "afterTest": true,
-        "afterConsequent": true,
-        "beforeAlternate": true,
-        "beforeConsequent": true
-    },
+    "requireSpaceAfterLineComment": true,
+    "requireSpaceBetweenArguments": true,
     "disallowKeywordsOnNewLine": ["else"],
-    "disallowCurlyBraces": ["while", "for", "do", "with"]
+    "disallowCurlyBraces": ["while", "for", "do", "with"],
+    "requireSpaceAfterKeywords": ["do", "for", "if", "else", "switch", "case", "try", "catch", "void", "while", "with", "return", "typeof", "function"]
 }
