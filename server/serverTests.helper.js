@@ -34,9 +34,6 @@ var customMatchers = {
     "toBeJsonEqual": toBeJsonEqual
 };
 
-function configJasmine (jasmine) {
+beforeEach(function(){
     jasmine.addMatchers(customMatchers);
-}
-
-module.exports = configJasmine
-
+});

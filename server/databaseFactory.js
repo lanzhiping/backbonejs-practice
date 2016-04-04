@@ -24,7 +24,7 @@ function validateFilePath(filename) {
     return true;
 }
 
-databaseFactory = function(filename) {
+databaseFactory = function (filename) {
 
     this.filePath = validateFilePath(filename)?getFilePath(filename):null;
 
