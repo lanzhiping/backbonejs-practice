@@ -2,7 +2,7 @@
 
 var paths = require("./paths.js"),
     linterConfig = {
-        "files": [paths.serverjs, paths.serverspecjs],
+        "files": [paths.serverjs, paths.serverspecjs, "./server/todoRepo.spec.js"], // todo: need to replace by **.js
         "globals": {
             "jQuery": true,
             "Marionette": true,
@@ -16,11 +16,10 @@ var paths = require("./paths.js"),
     },
 
     jscsConfig = {
-       "src": [paths.serverjs, paths.serverspecjs], // todo: need to replace by **.js
+       "src": [paths.serverjs, paths.serverspecjs, "./server/todoRepo.spec.js"], // todo: need to replace by **.js
         "options": {
-            "config": ".jscsrc",
-            "fix": true,
-            "requireCurlyBraces": [ "if" ]
+            "fix": false,
+            "config": ".jscsrc"
         }
     },
 
@@ -42,7 +41,7 @@ var paths = require("./paths.js"),
     jasmineNodejsConfig = {
         "serverUnitTest": {
             "specs": ["./server/*.js"],
-            "helpers": ["./server/*.js"],
+            "helpers": ["./server/*.helper.js"],
         },
         "options": {
             "seed": null,

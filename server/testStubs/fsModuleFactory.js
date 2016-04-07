@@ -34,10 +34,31 @@ function createFileExistMockFSModule (data){
     }
 }
 
+function createFunctionalMockFSModule() {
+    var result = "";
+    var repo = {"result": result};
+
+    return {
+        "repo": repo,
+        "statSync": function(filePath) {
+            return {
+                "isDirectory": function(){ return false; }
+            }
+        },
+        "readFileSync": function (filePath) {
+            return repo.result;
+        },
+        "writeFileSync": function(filePath, stringifyObject) {
+            repo.result = stringifyObject;
+        }
+    }
+}
+
 var fsModuleFactory =  {
     "createFileNotExistMockFSModule": createFileNotExistMockFSModule,
     "createIsDirectoryMockFSModule": createIsDirectoryMockFSModule,
-    "createFileExistMockFSModule": createFileExistMockFSModule
+    "createFileExistMockFSModule": createFileExistMockFSModule,
+    "createFunctionalMockFSModule": createFunctionalMockFSModule
 };
 
 module.exports = fsModuleFactory
