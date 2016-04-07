@@ -2,7 +2,7 @@
 
 function setupResultMessage (result, expected, actual) {
     if (!result.pass) {
-        result.message = "Expected " + actual + " to totally be " + expected;
+        result.message = "Expected '" + JSON.stringify(actual) + "' to totally be '" + JSON.stringify(expected) + "'";
     }
 }
 

@@ -26,22 +26,33 @@ function validateFilePath(filename) {
 
 databaseFactory = function (filename) {
 
-    this.filePath = validateFilePath(filename)?getFilePath(filename):null;
+    this.filePath = validateFilePath(filename) ? getFilePath(filename) : null;
 
     this.read = function (objectType) {
         console.log("read: " + (objectType || "all"));
 
         var fileContent = fs.readFileSync(this.filePath, "utf8");
-        var rootObject = fileContent.length === 0?{}:JSON.parse(fileContent);
-        return objectType?rootObject[objectType]:rootObject;
+
+        console.log(fileContent)
+
+        var rootObject = fileContent.length === 0 ? {} : JSON.parse(fileContent);
+        return objectType ? rootObject[objectType] : rootObject;
     };
 
     this.write = function (objectType, obj) {
         console.log("write: " + objectType);
 
         var rootObject = this.read();
+var  a = this.read(objectType);
 
-        rootObject[objectType] = obj;
+console.log(a,"rootObject");
+
+        //rootObject[objectType] = obj;
+
+        //console.log(obj,'obj---------------');
+
+        console.log(rootObject,'rootObject-------------');
+
         fs.writeFileSync(this.filePath, JSON.stringify(rootObject));
     };
 };
