@@ -32,9 +32,6 @@ databaseFactory = function (filename) {
         console.log("read: " + (objectType || "all"));
 
         var fileContent = fs.readFileSync(this.filePath, "utf8");
-
-        console.log(fileContent)
-
         var rootObject = fileContent.length === 0 ? {} : JSON.parse(fileContent);
         return objectType ? rootObject[objectType] : rootObject;
     };
@@ -43,15 +40,8 @@ databaseFactory = function (filename) {
         console.log("write: " + objectType);
 
         var rootObject = this.read();
-var  a = this.read(objectType);
 
-console.log(a,"rootObject");
-
-        //rootObject[objectType] = obj;
-
-        //console.log(obj,'obj---------------');
-
-        console.log(rootObject,'rootObject-------------');
+        rootObject[objectType] = obj;
 
         fs.writeFileSync(this.filePath, JSON.stringify(rootObject));
     };

@@ -18,19 +18,26 @@ describe("todo repository tests", function (){
         expect(todoRepo.deleteById).toBeDefined();
     });
 
-    fdescribe("todo repository functionality tests", function() {
-        it("be able to add a todo", function() {
+    describe("todo repository functionality tests", function() {
+        it("be able to read a todo", function() {
             var fakeFS = fsModuleFactory.createFunctionalMockFSModule(),
                 todoRepo = proxyquire(todoRepoPath, {
-                    "fs": fakeFS
+                    "./databaseFactory": proxyquire("./databaseFactory", {
+                        "fs": fakeFS
+                    })
                 }),
                 todo = {
                     "content": "this is my first todo"
                 };
 
-            todoRepo.add(todo);
+            fakeFS.repo.result = JSON.stringify({
+                "todo": [todo]
+            });
 
-            expect(fakeFS.repo.result["todo"]).toBeJsonEqual(todo);
+            var result = todoRepo.readAll("todo");
+
+            expect(result.length).toBe(1);
+            expect(result[0]).toBeJsonEqual(todo);
         });
     });
 });

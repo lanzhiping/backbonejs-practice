@@ -93,14 +93,14 @@ var databaseFactory = require("./databaseFactory"),
 
 todoRepository = function() {
     this.add = function(todoObject) {
-        database.write(todoType, todoObject);
+        throw "no been implemented";
     };
 
     this.edit = function(){
         throw "no been implemented";
     };
-    this.readAll = function(){
-        throw "no been implemented";
+    this.readAll = function(objectType){
+        return database.read(objectType);
     };
     this.readById = function(){
         throw "no been implemented";

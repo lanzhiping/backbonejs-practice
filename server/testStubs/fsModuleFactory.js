@@ -35,8 +35,8 @@ function createFileExistMockFSModule (data){
 }
 
 function createFunctionalMockFSModule() {
-    var result = "";
-    var repo = {"result": result};
+    var result = JSON.stringify(new Object),
+        repo = {"result": result};
 
     return {
         "repo": repo,
