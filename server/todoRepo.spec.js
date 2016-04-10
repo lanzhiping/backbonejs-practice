@@ -2,10 +2,11 @@
 
 var proxyquire = require("proxyquire"),
     fsModuleFactory = require("./testStubs/fsModuleFactory"),
+    databaseFactoryPath = "./databaseFactory",
     todoRepoPath = "./todoRepo",
     todoRepo;
 
-describe("todo repository tests", function (){
+describe("todo repository tests", function () {
     it("could be required", function () {
         todoRepo = proxyquire(todoRepoPath, {});
 
@@ -18,17 +19,24 @@ describe("todo repository tests", function (){
         expect(todoRepo.deleteById).toBeDefined();
     });
 
-    describe("todo repository functionality tests", function() {
-        it("be able to read a todo", function() {
-            var fakeFS = fsModuleFactory.createFunctionalMockFSModule(),
-                todoRepo = proxyquire(todoRepoPath, {
-                    "./databaseFactory": proxyquire("./databaseFactory", {
-                        "fs": fakeFS
-                    })
-                }),
-                todo = {
-                    "content": "this is my first todo"
-                };
+    describe("todo repository functionality tests", function () {
+        var fakeFS, databaseFactory, todoRepo;
+
+        beforeEach(function () {
+            fakeFS = fsModuleFactory.createFunctionalMockFSModule();
+            databaseFactory = proxyquire(databaseFactoryPath, {
+                "fs": fakeFS
+            });
+            todoRepo = proxyquire(todoRepoPath, {
+                "./databaseFactory": databaseFactory
+            });
+        });
+
+        it("be able to read a todo", function () {
+            var todo = {
+                "id": 0,
+                "content": "this is my first todo"
+            };
 
             fakeFS.repo.result = JSON.stringify({
                 "todo": [todo]
