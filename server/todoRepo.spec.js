@@ -6,7 +6,7 @@ var proxyquire = require("proxyquire"),
     todoRepoPath = "./todoRepo",
     todoRepo;
 
-fdescribe("todo repository tests", function () {
+describe("todo repository tests", function () {
     it("could be required", function () {
         todoRepo = proxyquire(todoRepoPath, {});
 
@@ -70,5 +70,25 @@ fdescribe("todo repository tests", function () {
             expect(fakeFS.repo.result).toBe(expectResult);
         });
 
+        it("be able to edit a todo object", function () {
+            var todo = {
+                "id": 0,
+                "content": "this is an exsiting todo",
+            };
+
+            fakeFS.repo.result = JSON.stringify({
+                "todo": [todo]
+            });
+
+            todo.content = "this todo has been modified";
+
+            todoRepo.edit(todo);
+
+            var expectResult = JSON.stringify({
+                "todo": [todo]
+            });
+
+            expect(fakeFS.repo.result).toBe(expectResult);
+        });
     });
 });
