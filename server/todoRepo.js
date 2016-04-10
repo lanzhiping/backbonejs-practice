@@ -1,14 +1,7 @@
 'use strict';
 
-// var fs = require('fs');
 
-// function compare(a, b) {
-//     if (a.id < b.id) return -1;
-//     if (a.id > b.id) return 1;
-//     return 0;
-// }
-
-// function validateFilePath(filename) {
+// function validateFilePath(filename) { continuous
 //     var filePath = './db/' + filename + '.js';
 //     try {
 //         var stats = fs.statSync(filePath);
@@ -87,20 +80,37 @@
 // };
 
 var databaseFactory = require("./databaseFactory"),
+    repoHelper = require("./repositoryHelper"),
     database = new databaseFactory("test"),
     todoType = "todo",
     todoRepository;
 
 todoRepository = function() {
+
     this.add = function(todoObject) {
-        throw "no been implemented";
+        var todoList = database.read(todoType);
+
+        todoObject.id = repoHelper.getSmallestContinuousId(todoList);
+
+        todoList.push(todoObject);
+        database.write(todoType, todoList);
     };
 
-    this.edit = function(){
-        throw "no been implemented";
+    this.edit = function(todoObject){
+        var todoList = database.read(todoType);
+
+        todoList.forEach(function (todo, index) {
+            if (todo.id === todoObject.id) {
+                todoList[index] = todoObject;
+                return;
+            }
+        });
+
+        database.write(todoType, todoList);
     };
-    this.readAll = function(objectType){
-        return database.read(objectType);
+
+    this.readAll = function(){
+        return database.read(todoType);
     };
     this.readById = function(){
         throw "no been implemented";

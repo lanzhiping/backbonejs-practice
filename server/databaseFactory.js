@@ -33,6 +33,11 @@ databaseFactory = function (filename) {
 
         var fileContent = fs.readFileSync(this.filePath, "utf8");
         var rootObject = fileContent.length === 0 ? {} : JSON.parse(fileContent);
+
+        if (objectType) {
+            rootObject[objectType] = rootObject[objectType] || [];
+        }
+
         return objectType ? rootObject[objectType] : rootObject;
     };
 
