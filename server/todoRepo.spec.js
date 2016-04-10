@@ -6,7 +6,7 @@ var proxyquire = require("proxyquire"),
     todoRepoPath = "./todoRepo",
     todoRepo;
 
-describe("todo repository tests", function () {
+fdescribe("todo repository tests", function () {
     it("could be required", function () {
         todoRepo = proxyquire(todoRepoPath, {});
 
@@ -42,10 +42,33 @@ describe("todo repository tests", function () {
                 "todo": [todo]
             });
 
-            var result = todoRepo.readAll("todo");
+            var result = todoRepo.readAll();
 
             expect(result.length).toBe(1);
             expect(result[0]).toBeJsonEqual(todo);
         });
+
+        it("be able to add and initialze an id for a todo object", function () {
+            var existTodo = {
+                    "id": 0,
+                    "content": "this is an exsiting todo",
+                },
+                newTodo = {
+                    "content": "this is my first todo"
+                };
+
+            fakeFS.repo.result = JSON.stringify({
+                "todo": [existTodo]
+            });
+            todoRepo.add(newTodo);
+
+            newTodo["id"] = 1;
+            var expectResult = JSON.stringify({
+                "todo": [existTodo, newTodo]
+            });
+
+            expect(fakeFS.repo.result).toBe(expectResult);
+        });
+
     });
 });
