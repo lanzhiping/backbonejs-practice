@@ -129,9 +129,11 @@ var paths = require("./paths.js"),
         },
 
         "tasks": {
-            "default": ["uglify", "concat", "underscore_singlefile", "watch"],
+            "buildClient": ["uglify", "concat", "underscore_singlefile"],
+            "watch": ["watch"],
             "serverUT": ["jasmine_nodejs:serverUnitTest"],
-            "checkJs": ["jscs", "linter"]
+            "checkJs": ["jscs", "linter"],
+            "build": ["checkJs", "serverUT", "buildClient"]
         }
     };
 
