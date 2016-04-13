@@ -1,102 +1,22 @@
 'use strict';
 
-
-// function validateFilePath(filename) { continuous
-//     var filePath = './db/' + filename + '.js';
-//     try {
-//         var stats = fs.statSync(filePath);
-//         if (stats.isDirectory()) {
-//             throw '{0} is not a valid file.'.replace('{0}', filename);
-//         }
-
-//     } catch (e) {
-//         console.log(e);
-//     }
-
-//     return filePath;
-// }
-
-// function InitDataBase(filename) {
-
-//     this.filePath = validateFilePath(filename);
-
-//     this.read = function (objectType) {
-//         console.log('read: ' + (objectType || 'all'));
-
-//         var fileContent = fs.readFileSync(this.filePath, 'utf8');
-//         var rootObject = fileContent.length == 0 ? {} : JSON.parse(fileContent);
-//         return objectType ? rootObject[objectType] : rootObject;
-//     };
-
-//     this.deleteByIdAndType = function (objectType, id) {
-//         console.log('delete type:' + objectType + ' id:' + id);
-
-//         var rootObject = this.read(),
-//             updateObjectSet = rootObject[objectType];
-
-//         if (!updateObjectSet) {
-//             console.log('objects of ' + objectType + ' doesnt exist.');
-//             return false;
-//         }
-//         var deleteObject = updateObjectSet.filter(function (item) { return item.id === id });
-//         if (!deleteObject) {
-//             console.log(
-//                 'the object type:{0} id:{1} doesnt exist.'
-//                 .replace('{0}', objectType)
-//                 .replace('{1}', id));
-//             return false;
-//         };
-
-//         rootObject[objectType] = updateObjectSet.filter(function (item) { return item.id != id });
-//         fs.writeFileSync(this.filePath, JSON.stringify(rootObject));
-//         return true;
-//     };
-
-//     this.write = function (objectType, obj) {
-//         console.log('write: ' + objectType);
-
-//         var rootObject = this.read();
-//         if (rootObject[objectType] == undefined) rootObject[objectType] = [];
-
-//         if (obj.id != undefined) {
-//             rootObject[objectType].forEach(function (item, index) {
-//                 if (item.id === obj.id)
-//                     rootObject[objectType][index] = obj;
-//                 return;
-//             });
-//         } else {
-//             var hightestContinousElement = rootObject[objectType]
-//                                         .sort(compare)
-//                                         .filter(function (item, index) { return item.id == index })
-//                                         .pop();
-
-//             obj.id = hightestContinousElement && rootObject[objectType].sort(compare)[0].id === 0
-//                    ? hightestContinousElement.id + 1 : 0;
-//             rootObject[objectType].push(obj);
-//         }
-
-//         fs.writeFileSync(this.filePath, JSON.stringify(rootObject));
-//     };
-// };
-
 var databaseFactory = require("./databaseFactory"),
     repoHelper = require("./repositoryHelper"),
     database = new databaseFactory("test"),
     todoType = "todo",
     todoRepository;
 
-todoRepository = function() {
+function initTodoRepository () { // todo: need to abstract into a class
 
-    this.add = function(todoObject) {
+    function add(todoObject) {
         var todoList = database.read(todoType);
 
         todoObject.id = repoHelper.getSmallestContinuousId(todoList);
-
         todoList.push(todoObject);
         database.write(todoType, todoList);
-    };
+    }
 
-    this.edit = function(todoObject){
+    function edit(todoObject) {
         var todoList = database.read(todoType);
 
         todoList.forEach(function (todo, index) {
@@ -109,18 +29,55 @@ todoRepository = function() {
         database.write(todoType, todoList);
     };
 
-    this.readAll = function(){
+    function readAll() {
         return database.read(todoType);
     };
-    this.readById = function(){
-        throw "no been implemented";
-    };
-    this.deleteAll = function(){
-        throw "no been implemented";
-    };
-    this.deleteById = function(){
-        throw "no been implemented";
-    };
-};
 
-module.exports = new todoRepository;
+    function findById(todoId) {
+        return function(todo) {
+            return todo.id === todoId;
+        };
+    }
+
+    function readById(todoId) {
+        return this.readAll()
+                   .find(findById(todoId));
+    };
+
+    function deleteAll() {
+        var emptyTodoList = [];
+
+        database.write(todoType, emptyTodoList);
+    };
+
+    function filterOutById(todoId) {
+        return function(todo) {
+            return todo.id !== todoId;
+        }
+    }
+    function deleteById(todoId) {
+        var todoList = this.readAll();
+
+        todoList = todoList.filter(filterOutById(todoId));
+        database.write(todoType, todoList);
+    };
+
+    return {
+        "add": add,
+        "edit": edit,
+        "readAll": readAll,
+        "readById": readById,
+        "deleteAll": deleteAll,
+        "deleteById": deleteById
+    };
+}
+
+function getInstance () {
+    if (!todoRepository) {
+        todoRepository = initTodoRepository();
+    }
+
+    return todoRepository;
+}
+
+module.exports = getInstance();

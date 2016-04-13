@@ -46,17 +46,17 @@ var paths = require("./paths.js"),
         "options": {
             "seed": null,
             "useHelpers": true,
-            "traceFatal": true,
-            "stopOnFailure": true,
+            "stopOnFailure": false,
+            "traceFatal": 1,
             "defaultTimeout": 5000,
             "specNameSuffix": ".spec.js",
             "helperNameSuffix": ".helper.js",
             "reporters": {
                 "console": {
-                    "colors": true,
-                    "activity": true,
-                    "verbosity": true,
-                    "cleanStack": true,
+                    "colors": 2,
+                    "verbosity": 3,
+                    "cleanStack": 1,
+                    "activity": false,
                     "listStyle": "indent"
                 }
             }
