@@ -32,7 +32,7 @@ describe("todo repository tests", function () {
             });
         });
 
-        it("be able to read a todo", function () {
+        it("be able to read all todos", function () {
             var todo = {
                 "id": 0,
                 "content": "this is my first todo"
@@ -46,6 +46,21 @@ describe("todo repository tests", function () {
 
             expect(result.length).toBe(1);
             expect(result[0]).toBeJsonEqual(todo);
+        });
+
+        it("be able to read a todo by id", function () {
+            var todo = {
+                "id": 0,
+                "content": "this is my first todo"
+            };
+
+            fakeFS.repo.result = JSON.stringify({
+                "todo": [todo]
+            });
+
+            var result = todoRepo.readById(todo.id);
+
+            expect(result).toBeJsonEqual(todo);
         });
 
         it("be able to add and initialze an id for a todo object", function () {
@@ -90,5 +105,47 @@ describe("todo repository tests", function () {
 
             expect(fakeFS.repo.result).toBe(expectResult);
         });
+
+        it("be able to delete all todos", function () {
+            var todo1 = {
+                    "id": 0,
+                    "content": "this is my first todo"
+                },
+                todo2 = {
+                    "id": 1,
+                    "content": "this is my second todo"
+                };
+
+            fakeFS.repo.result = JSON.stringify({
+                "todo": [todo1, todo2]
+            });
+
+            todoRepo.deleteAll();
+
+            var result = todoRepo.readAll();
+            expect(result.length).toBe(0);
+        });
+
+        it("be able to delete a todo by id", function () {
+            var todo1 = {
+                    "id": 0,
+                    "content": "this is my first todo"
+                },
+                todo2 = {
+                    "id": 1,
+                    "content": "this is my second todo"
+                };
+
+            fakeFS.repo.result = JSON.stringify({
+                "todo": [todo1, todo2]
+            });
+
+            todoRepo.deleteById(todo1.id);
+
+            var result = todoRepo.readAll();
+            expect(result.length).toBe(1);
+            expect(result[0]).toBeJsonEqual(todo2);
+        });
+
     });
 });
