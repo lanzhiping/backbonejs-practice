@@ -2,12 +2,12 @@
 
 var port = 8000,
     bodyParser = require("body-parser"),
-    serverBuilder = require('./server/serverBuilder');
+    httpServer = require('./server/httpServer');
 
 (function () {
     var express = require('express'),
         app = express(),
-        backboneServer = new require("./server/backboneService").build("test");
+        backboneServer = new require("./server/backboneServer").build("test");
 
     app.get("/", express.static("backbone"));
 
@@ -16,14 +16,14 @@ var port = 8000,
     app.use("/backbone", express.static("backbone"));
 
     app.use(bodyParser.json());
+
     app.get("/api/backbone", backboneServer.get);
     app.post("/api/backbone", backboneServer.post);
     app.put("/api/backbone", backboneServer.put);
     app.delete("/api/backbone", backboneServer.delete);
 
-    serverBuilder
+    httpServer
         .withPort(process.env.PORT || port)
         .withHandler(app)
-        .build()
         .start();
 })();

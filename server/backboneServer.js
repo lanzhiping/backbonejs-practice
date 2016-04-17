@@ -1,54 +1,63 @@
-var url = require('url'),=
-    DataManipulatorBuilder = require('./initDataBase.js');
+"use strict";
 
-function debug(response, obj) {
-    response.writeHead(200, { 'Content-Type': 'application/json' });
-    response.write(JSON.stringify(obj));
-    response.end();
+var url = require("url"),
+    DataManipulatorBuilder = require("./initDataBase.js"),
+    responseHeader = {
+        "Content-Type": "application/json"
+    };
+
+function getObjectTypeFromUrl(request) {
+    var urlInfo = url.parse(request.url, true),
+        objectType = urlInfo.search.split("?")[1].split("/")[0],
+        id = urlInfo.search.split("?")[1].split("/")[1];
+
+    return {
+        "id": id,
+        "objectType": objectType
+    };
 }
 
-function createFromChunk(dataManipulator, objectType, response) {
-    return function (chunk) {
-        var obj = JSON.parse(chunk.toString('utf8'));
+function backboneServer() {
+    var dataManipulator;
 
-        dataManipulator.write(objectType, obj);
-        response.writeHead(200, { 'Content-Type': 'application/json' });
-        response.write(JSON.stringify(obj));
+    this.build = function(filename) {
+        dataManipulator = new DataManipulatorBuilder(filename);
+        return this;
+    };
+
+    // read
+    this.get = function(request, response) {
+        var urlInfo = getObjectTypeFromUrl(request),
+            data = dataManipulator.read(urlInfo.objectType);
+
+        response.writeHead(200, responseHeader);
+        response.write(JSON.stringify(data || []));
         response.end();
-    }
+    };
+
+    // create
+    this.post = function(request, response) {
+        var urlInfo = getObjectTypeFromUrl(request);
+        dataManipulator.write(urlInfo.objectType, request.body);
+        response.writeHead(200, {
+            "Content-Type": "application/json"
+        });
+        response.write(JSON.stringify(request.body));
+        response.end();
+    };
+
+    //  update
+    this.put = this.post;
+
+    // delete`
+    this.delete = function(request, response) {
+        var urlInfo = getObjectTypeFromUrl(request),
+            isSuccessful = dataManipulator.deleteByIdAndType(urlInfo.objectType, urlInfo.id),
+            result = isSuccessful ? "success" : "No Content";
+        response.writeHead((isSuccessful ? 200 : 204), responseHeader);
+        response.write(JSON.stringify({"result":result}));
+        response.end();
+    };
 }
 
-function backboneServer(filename) {
-
-    var dataManipulator = new DataManipulatorBuilder(filename);
-
-	function requestHandle(request, response) {
-
-        console.log('are you in backbone server or not?')
-
-		var urlInfo = url.parse(request.url, true),
-			objectType  = urlInfo.search.split('?')[1].split('/')[0],
-			id = urlInfo.search.split('?')[1].split('/')[1];
-
-		(request.method === 'POST' || request.method === 'PUT')
-		&& request.on('data', createFromChunk(dataManipulator, objectType, response));
-
-		(request.method === 'GET') && (function() {
-			response.writeHead(200, { 'Content-Type': 'application/json' });
-			response.write(JSON.stringify(dataManipulator.read(objectType) || []));
-			response.end();
-		})();
-
-		(request.method === 'DELETE') && (function(){
-			var result = dataManipulator.deleteByIdAndType(objectType, id);
-
-			response.writeHead((result? 200:204), { 'Content-Type': 'application/json' });
-			response.write(JSON.stringify({result: (result?'success':'No Content')}));
-			response.end();
-		})();
-	}
-
-	return requestHandle;
-}
-
-module.exports = backboneServer;
+module.exports = new backboneServer();
