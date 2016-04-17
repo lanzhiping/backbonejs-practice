@@ -1,7 +1,7 @@
 "use strict";
 
 var proxyquire = require("proxyquire"),
-    fsModuleFactory = require("./testStubs/fsModuleFactory"),
+    fsModuleFactory = require("../testStubs/fsModuleFactory"),
     databaseFactoryPath = "./databaseFactory",
     todoRepoPath = "./todoRepo",
     todoRepo;
