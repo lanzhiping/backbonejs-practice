@@ -40,8 +40,8 @@ var paths = require("./paths.js"),
 
     jasmineNodejsConfig = {
         "serverUnitTest": {
-            "specs": ["./server/*.js"],
-            "helpers": ["./server/*.helper.js"],
+            "specs": ["./server/**/*.spec.js"],
+            "helpers": ["./server/**/*.helper.js"],
         },
         "options": {
             "seed": null,
