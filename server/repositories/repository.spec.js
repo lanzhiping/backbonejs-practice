@@ -32,7 +32,7 @@ describe("todo repository tests", function () {
             });
         });
 
-        fit("be able to read all todos", function () {
+        it("be able to read all todos", function () {
             var objectType = "todo",
                 todo = {
                     "id": 0,
@@ -49,7 +49,7 @@ describe("todo repository tests", function () {
             expect(result[0]).toBeJsonEqual(todo);
         });
 
-        fit("be able to read a todo by id", function () {
+        it("be able to read a todo by id", function () {
             var objectType = "todo",
                 todo = {
                     "id": 0,
@@ -65,7 +65,7 @@ describe("todo repository tests", function () {
             expect(result).toBeJsonEqual(todo);
         });
 
-        fit("be able to add and initialze an id for a todo object", function () {
+        it("be able to add and initialze an id for a todo object", function () {
             var objectType = "todo",
                 existTodo = {
                     "id": 0,
@@ -88,7 +88,7 @@ describe("todo repository tests", function () {
             expect(fakeFS.repo.result).toBe(expectResult);
         });
 
-        fit("be able to edit a todo object", function () {
+        it("be able to edit a todo object", function () {
             var objectType = "todo",
                 todo = {
                     "id": 0,
@@ -110,7 +110,7 @@ describe("todo repository tests", function () {
             expect(fakeFS.repo.result).toBe(expectResult);
         });
 
-        fit("be able to delete all todos", function () {
+        it("be able to delete all todos", function () {
             var objectType = "todo",
                 todo1 = {
                     "id": 0,
@@ -131,7 +131,7 @@ describe("todo repository tests", function () {
             expect(result.length).toBe(0);
         });
 
-        fit("be able to delete a todo by id", function () {
+        it("be able to delete a todo by id", function () {
             var objectType = "todo",
                 todo1 = {
                     "id": 0,

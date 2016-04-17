@@ -5,7 +5,7 @@ var fs = require("fs"),
     isDirectoryErrorTemplate = "{0} is not a valid file.",
     databaseFactory;
 
-function getFilePath (filename){
+function getFilePath(filename) {
     return filepathTemplate.replace("{0}", filename);
 }
 

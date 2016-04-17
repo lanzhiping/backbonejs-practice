@@ -7,7 +7,7 @@ var port = 8000,
 (function () {
     var express = require('express'),
         app = express(),
-        backboneServer = new require("./server/backboneServer").build("test");
+        backboneServer = new require("./server/backboneServer");
 
     app.get("/", express.static("backbone"));
 

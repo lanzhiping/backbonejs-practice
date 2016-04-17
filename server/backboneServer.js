@@ -1,15 +1,15 @@
 "use strict";
 
 var url = require("url"),
-    DataManipulatorBuilder = require("./initDataBase.js"),
+    repository = require("./repositories/repository"),
     responseHeader = {
         "Content-Type": "application/json"
     };
 
-function getObjectTypeFromUrl(request) {
+function getObjectTypeFromUrl(request) { // todo: refactor
     var urlInfo = url.parse(request.url, true),
         objectType = urlInfo.search.split("?")[1].split("/")[0],
-        id = urlInfo.search.split("?")[1].split("/")[1];
+        id = Number.parseInt(urlInfo.search.split("?")[1].split("/")[1]);
 
     return {
         "id": id,
@@ -18,17 +18,11 @@ function getObjectTypeFromUrl(request) {
 }
 
 function backboneServer() {
-    var dataManipulator;
-
-    this.build = function(filename) {
-        dataManipulator = new DataManipulatorBuilder(filename);
-        return this;
-    };
-
     // read
     this.get = function(request, response) {
         var urlInfo = getObjectTypeFromUrl(request),
-            data = dataManipulator.read(urlInfo.objectType);
+
+            data = repository.readAll(urlInfo.objectType);
 
         response.writeHead(200, responseHeader);
         response.write(JSON.stringify(data || []));
@@ -38,7 +32,9 @@ function backboneServer() {
     // create
     this.post = function(request, response) {
         var urlInfo = getObjectTypeFromUrl(request);
-        dataManipulator.write(urlInfo.objectType, request.body);
+
+        repository.add(urlInfo.objectType, request.body);
+
         response.writeHead(200, {
             "Content-Type": "application/json"
         });
@@ -47,15 +43,26 @@ function backboneServer() {
     };
 
     //  update
-    this.put = this.post;
+    this.put = function (request, response) {
+        var urlInfo = getObjectTypeFromUrl(request);
+
+        repository.edit(urlInfo.objectType, request.body);
+
+        response.writeHead(200, {
+            "Content-Type": "application/json"
+        });
+        response.write(JSON.stringify(request.body));
+        response.end();
+    };
 
     // delete`
     this.delete = function(request, response) {
-        var urlInfo = getObjectTypeFromUrl(request),
-            isSuccessful = dataManipulator.deleteByIdAndType(urlInfo.objectType, urlInfo.id),
-            result = isSuccessful ? "success" : "No Content";
-        response.writeHead((isSuccessful ? 200 : 204), responseHeader);
-        response.write(JSON.stringify({"result":result}));
+        var urlInfo = getObjectTypeFromUrl(request);
+
+        repository.deleteById(urlInfo.objectType, urlInfo.id);
+
+        response.writeHead(200, responseHeader);
+        response.write(JSON.stringify({"result":"success"}));
         response.end();
     };
 }
