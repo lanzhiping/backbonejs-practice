@@ -1,7 +1,7 @@
 'use strict';
 
 var databaseFactory = require("./databaseFactory"),
-    repoHelper = require("../repositoryHelper"),
+    repoHelper = require("./repositoryHelper"),
     database = new databaseFactory("test"),
     todoType = "todo",
     todoRepository;
