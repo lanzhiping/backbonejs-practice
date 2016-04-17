@@ -54,6 +54,7 @@ function ServerBuilder() {
     };
 
     this.start = function() {
+        this.build();
         this.server.listen(this.portNumber);
     };
 }

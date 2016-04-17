@@ -17,7 +17,7 @@ function getObjectTypeFromUrl(request) {
     };
 }
 
-function backboneService() {
+function backboneServer() {
     var dataManipulator;
 
     this.build = function(filename) {
@@ -25,6 +25,7 @@ function backboneService() {
         return this;
     };
 
+    // read
     this.get = function(request, response) {
         var urlInfo = getObjectTypeFromUrl(request),
             data = dataManipulator.read(urlInfo.objectType);
@@ -34,6 +35,7 @@ function backboneService() {
         response.end();
     };
 
+    // create
     this.post = function(request, response) {
         var urlInfo = getObjectTypeFromUrl(request);
         dataManipulator.write(urlInfo.objectType, request.body);
@@ -44,8 +46,10 @@ function backboneService() {
         response.end();
     };
 
+    //  update
     this.put = this.post;
 
+    // delete`
     this.delete = function(request, response) {
         var urlInfo = getObjectTypeFromUrl(request),
             isSuccessful = dataManipulator.deleteByIdAndType(urlInfo.objectType, urlInfo.id),
@@ -56,4 +60,4 @@ function backboneService() {
     };
 }
 
-module.exports = new backboneService();
+module.exports = new backboneServer();
