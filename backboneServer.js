@@ -1,5 +1,5 @@
 var url = require('url'),
-    dataManipulatorBuilder = require('./initDataBase.js');
+    dataManipulatorBuilder = require('./InitDataBase.js');
 
 function debug(response, obj) {
     response.writeHead(200, { 'Content-Type': 'application/json' });
@@ -27,7 +27,7 @@ function backboneServer(filename) {
 			objectType  = urlInfo.search.split('?')[1].split('/')[0],
 			id = urlInfo.search.split('?')[1].split('/')[1];
 
-		(request.method === 'POST' || request.method === 'PUT') 
+		(request.method === 'POST' || request.method === 'PUT')
 		&& request.on('data', createFromChunk(dataManipulator, objectType, response));
 
 		(request.method === 'GET') && (function() {
@@ -38,7 +38,7 @@ function backboneServer(filename) {
 
 		(request.method === 'DELETE') && (function(){
 			var result = dataManipulator.deleteByIdAndType(objectType, id);
-			
+
 			response.writeHead((result? 200:204), { 'Content-Type': 'application/json' });
 			response.write(JSON.stringify({result: (result?'success':'No Content')}));
 			response.end();
