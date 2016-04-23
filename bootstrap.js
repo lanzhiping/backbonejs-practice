@@ -6,7 +6,7 @@ var port = 8000,
 
 (function () {
     serverBuilder
-        .withPort(port)
+        .withPort(process.env.PORT || port)
         .withHandler(httpRequestHandler('backbone'))
         .onSuccess(function () { console.log('server is listening at: ' + port) })
         .build()
