@@ -1,6 +1,7 @@
 {
     "name": "backbone-practice",
     "scripts": {
+        "start": "node bootstrap.js",
         "grunt": "grunt",
         "pm2s": "pm2 start bootstrap.js",
         "pm2-l": "pm2 list",
