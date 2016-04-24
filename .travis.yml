@@ -8,6 +8,5 @@ node_js:
 
 before_script:
     - "npm install"
-    - "npm run grunt build"
 
-script: "npm run grunt serverUT"
+script: "npm run grunt build"
