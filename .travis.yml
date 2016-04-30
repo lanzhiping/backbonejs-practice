@@ -1,12 +1,15 @@
 language: node_js
-
 node_js:
-    - "5.1"
-    - "4.2"
-    - "4.1"
-    - "4.0"
-
+- '5.1'
+- '4.2'
+- '4.1'
+- '4.0'
 before_script:
-    - "npm install"
-
-script: "npm run grunt build"
+- npm install
+script: npm run grunt build
+deploy:
+  provider: heroku
+  app: backbone-todo
+  on: release
+  api_key:
+    secure: 0d9lo3pyW1HQ4GgfnPLLi/IjTvybee30SbnytO8hAqU1RpTRAzjDE96fmde6WIrWcBZNuL6/szMI2MGwfPTiWHSLVZGXpnkStklpQehBxXl0AGmwRmjYk8XjkBvDcph2OUuj1BVg6diD9tOk3r+ICyZtfZDlnjW/ldzPxQQ0fvPZo/cbaRQxespBhz7QvRakKi83bqO6NzY27MqbWsR3mFmr5QZV/As8vaIAa3Ea4bgACeSS7ChjeRQoVcFoae9ox/Szm2q7E5eD3ifw8wiU4pjnU9pJgjYsUi1Sculv467JtbCVol3Etk0Ag1xEAaFYskzhZSMihgPQut3JnJa0UMoyYeDHFnPHBd86KXP/3/y/MN0nljomnlsh5TcZS5824amhiNLRdGScXQZXpspBUgDtPKCdBGBwaEYdzaI2Ouq2843+M1eKRG5gZQt1hChXD7NW3maJtIpsdsEQxQ0aRLjPHiCA/GI7dOyJK60GB5e41zCNcS5hhaSQzeBCQMcLqAn7RCOLZPfBP5L0wlEi/RNbvQocpuL3pQXwUTR9vG4Gj0682MHQP386EdWzFdI883HcJ1t/5Va3HORfFuwOxZCGaHJ6X5h5FsrMdL0s2YKKq9kVsM61NBuNc4osZ4A6BwXPF2wr9GiuqVn9s4+AXiQUP+uvGTLQcIjdUlKAB2Q=
