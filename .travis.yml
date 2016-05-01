@@ -4,6 +4,11 @@ node_js:
 - '4.2'
 - '4.1'
 - '4.0'
+# whitelist
+branches:
+  only:
+    - master
+    - release
 before_script:
 - npm install
 script: npm run grunt build
@@ -11,6 +16,6 @@ deploy:
   skip_cleanup: true
   provider: heroku
   app: lanzhiping
-  on: master
+  on: release
   api_key:
     secure: 3AjsFZS1kflR6NuubSxuAK/zpFhMNvR6eviakAZ1F5ovyCBukP+1e83hlIIbYILbzPHq2W4NcIWcdcK5GtSJ9Gg2fZ2GgmsYekkfSZ/EEYnlFWivjfPiRXO6E12blpN0L5xD0HYItm6bcO9eQTBGzCxGNbSGRZGCtAJBP2pDzaxlDj0vufxnuBfCOHbvvuhoVSwUgUnTaQbPoVqn2NOe1ypUcprN73GqKS0QfO1QMDguEGLxOyFGmaq3wa67WN5Kf6KWBwoUb6kujgsyLUdR28/W4uWwOMchMhx8iu4pOqE72B6H89THBYdI1mDAw9CZ3R+DhOKmAUNvlejsVTrEDXRel9NU7l34IuLaAV6jOSximyFLrLSiEXM9HxptKuCcfYn1OX/0nVNiO8O4LY94psttKDHj5+7EhoS/2YtJNeGKDKVQfH0+DinIT/Dzsx0nPy1DqE6d7GpcdE0oMagJs8t7bEWG+PYeyJznarSFAA/tozvStqOVaG6CFghCtAFsyqJLWmR4hv5yTcgMxvFTTGh8Lp5wUiVuC/Wkse3H7AbuUpxnPJzOYsUifTT4Qm0UHzgHnbUJMuVQHzdCiFgDXAvw5fpNHJftIrk2cDaYVs9TEJ9rPYAn4NpEplmeuQd2O15kyk6KcZAxShIr/9BZ+c7jARlct3trrT8N9R9K4gU=
