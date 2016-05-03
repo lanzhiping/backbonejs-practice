@@ -1,0 +1,12 @@
+@import "../../components/style/global.scss";
+
+
+@import "./style/small.scss";
+
+@media only screen
+    and (min-width: $small-breakpoint + 1) {
+    @import "./style/medium.scss"; }
+
+@media only screen
+    and (min-width: $medium-breakpoint + 1) {
+    @import "./style/large.scss"; }

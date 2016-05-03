@@ -1,0 +1,40 @@
+@import "./variables.scss";
+@import "./mixin.scss";
+
+* {
+    font-family:sans-serif;
+}
+
+body {
+    background-color:whitesmoke;
+    margin: 0px;
+}
+
+input {
+    background: transparent;
+    border-top:transparent;
+    border-bottom: solid 1px #3F51B5;
+    border-left: transparent;
+    border-right: transparent;
+}
+
+.iconfont {
+    $padding: 10px;
+    $fontSize: x-large;
+
+    cursor: pointer;
+
+    &.icon-left{
+        font-size: $fontSize;
+        padding-left: $padding;
+        padding-right: $padding;
+    }
+
+    &.icon-right{
+        font-size: $fontSize;
+        padding-left: $padding;
+        padding-right: $padding;
+        float: right;
+    }
+}
+

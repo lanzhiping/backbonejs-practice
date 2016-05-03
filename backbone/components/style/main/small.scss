@@ -1,0 +1,24 @@
+#header{
+    position: fixed;
+    height:40px;
+    width:100%;
+    top:0px;
+    color:white;
+    z-index: 1;
+    padding: 0px 5px;
+    line-height: 35px;
+}
+
+#container {
+    background-color: whitesmoke;
+    background-image: url(http://ww1.sinaimg.cn/large/7f10fb10jw1f2xkneye1qj21w0128k5r.jpg);
+    background-attachment: fixed;
+    background-position: 90% 50%;
+    background-size: cover;
+    width:100%;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+@import "../../../login/style/small.scss";
+@import "../../header/style/small.scss";
