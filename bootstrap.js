@@ -12,6 +12,7 @@ var port = 8000,
     app.get("/", express.static("backbone"));
 
     app.use("/dist", express.static("dist"));
+    app.use("/build", express.static("build"));
     app.use("/font", express.static("font"));
     app.use("/backbone", express.static("backbone"));
 

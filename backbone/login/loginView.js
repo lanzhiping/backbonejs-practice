@@ -1,37 +1,44 @@
-'use strict';
+"use strict";
 
-var app = app || {};
+var LoginView,
+    $ = require("jquery"),
+    _templates = require("../../build/js/templates"),
+    Marionette = require("backbone.marionette");
 
-(function(Backbone){
+LoginView = Marionette.ItemView.extend({
 
-	app.loginView = Backbone.View.extend({
-		className: "login-view",
-		container: $('#container'),
-		events: {'click #signIn': 'signIn'},
-		template: _templates['login_template'],
+    className: "login-view",
 
-		initialize: function(){
-			this.render();
-		},
+    container: $("#container"),
 
-		render: function(){
-			this.$el.html(this.template());
-			this.container.html(this.$el);
-			return this;
-		},
+    events: {
+        "click #signIn": "signIn"
+    },
 
-		signIn: function(){
-			var firstname = this.$('input[name="fname"]').val(),
-				lastname = this.$('input[name="lname"]').val();
-			app.router.isLogined = firstname === 'zhiping' && lastname === 'lan';
-			app.router.trigger('change:isLogined');
+    template: _templates["login_template"],
 
-			var fiveMinutes = 300000;
-			setTimeout(function(){
-				app.router.isLogined = false;
-				app.router.trigger('change:isLogined');
-			}, fiveMinutes);
-		}
-	});
+    initialize: function(){
+        this.render();
+    },
 
-})(window.Backbone);
+    render: function(){
+        this.$el.html(this.template());
+        this.container.html(this.$el);
+        return this;
+    },
+
+    signIn: function(){
+        var firstname = this.$("input[name='fname']").val(),
+            lastname = this.$("input[name='lname]").val();
+        app.router.isLogined = firstname === "zhiping" && lastname === "lan";
+        app.router.trigger("change:isLogined");
+
+        var fiveMinutes = 300000;
+        setTimeout(function(){
+            app.router.isLogined = false;
+            app.router.trigger("change:isLogined");
+        }, fiveMinutes);
+    }
+});
+
+module.exports = LoginView;
