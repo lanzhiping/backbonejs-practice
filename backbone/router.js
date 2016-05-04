@@ -9,12 +9,12 @@ Router = Marionette.AppRouter.extend({
         "home":                 "home",
         "like":                 "like",
         "login/:loginAccount":  "login",
-        // "*actions":             "defaultRoute"
+        "*actions":             "defaultRoute"
     },
 
     "initialize": function(options) {
         this.on('change:isLogined', this.defaultRoute);
-        this.isLogined = this.options.isLogined;
+        // this.isLogined = this.controller.isLogined;
 
     },
 

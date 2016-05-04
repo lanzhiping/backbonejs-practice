@@ -7,7 +7,7 @@ var LikeView,
 
 LikeView = Marionette.ItemView.extend({
     container: $("#container"),
-    template: _templates["like_template"],
+    template: _templates["like/like_template"],
     initialize: function(){
         this.render();
     },

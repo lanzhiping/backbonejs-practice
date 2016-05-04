@@ -11,7 +11,9 @@ console.log("hi there")
 
 app.router = new Router({
     "isLogined": false,
-    "controller": new AppController
+    "controller": new AppController({
+        "isLogined": false,
+    })
 });
 
 Backbone.history.start();

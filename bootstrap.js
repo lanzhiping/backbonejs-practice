@@ -10,6 +10,7 @@ var port = 8000,
         backboneServer = new require("./server/backboneServer");
 
     app.get("/", express.static("backbone"));
+    app.get("/favicon.ico", express.static("./favicon.ico"));
 
     app.use("/dist", express.static("dist"));
     app.use("/build", express.static("build"));

@@ -2,7 +2,7 @@
 var app = app || {};
 
 app.todoView = Backbone.View.extend({
-	template: _templates['todo_template'],
+	template: _templates['home/todo_template'],
 	events:{
 		'dblclick': 'editTodo',
 		'click .icon-close2': 'deleteButton',

@@ -11,17 +11,15 @@ AppController = Marionette.Controller.extend({
     "initialize": function() {
         this.isLogined = this.options.isLogined;
     },
-/*
+
     "defaultRoute": function(actions) {
-        // this.isLogined && this.navigate('home', {trigger:true});
-        // !this.isLogined && this.navigate('login/lannano', {trigger:true});
         if (this.isLogined) {
             this.navigate("home", { trigger: true });
         } else {
             this.navigate("login/lannano", { trigger: true });
         }
     },
-*/
+
     "home": function() {
         new HomeView();
     },

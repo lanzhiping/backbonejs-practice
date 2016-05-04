@@ -7,7 +7,7 @@ var HomeView,
 
 HomeView = Marionette.ItemView.extend({
     container: $("#container"),
-    template: _templates["home_template"],
+    template: _templates["home/home_template"],
     events: {
         "click .todo-add": "addTodo",
     },

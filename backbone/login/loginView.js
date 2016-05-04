@@ -15,7 +15,7 @@ LoginView = Marionette.ItemView.extend({
         "click #signIn": "signIn"
     },
 
-    template: _templates["login_template"],
+    template: _templates["login/login_template"],
 
     initialize: function(){
         this.render();
