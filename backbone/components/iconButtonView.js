@@ -9,7 +9,7 @@ IconButtonView = Marionette.ItemView.extend({
     className:"iconfont",
 
     events: {
-        "click": onClick
+        "click": "onClick"
     },
 
     onRender: function (classString) {
@@ -19,27 +19,11 @@ IconButtonView = Marionette.ItemView.extend({
     initialize: function (options) {
         this.clickCallback = this.options.clickCallback;
         this.classString = this.options.classString;
-
-        // options.toggleClass && this.toggleClass(options.toggleClass);
     },
 
     onClick: function() {
         this.clickCallback();
     }
-
-    // toggleClass: function(args){
-    //     args[3][args[2]]
-    //     ? this.$el.removeClass(args[1]).addClass(args[0])
-    //     : this.$el.removeClass(args[0]).addClass(args[1]);
-
-    //     this.listenTo(args[3], "change:" + args[2],
-    //         function(routeName){
-    //             args[3][args[2]]
-    //             ? this.$el.removeClass(args[1]).addClass(args[0])
-    //             : this.$el.removeClass(args[0]).addClass(args[1]);
-    //         }
-    //     );
-    // }
 });
 
 module.exports = IconButtonView;

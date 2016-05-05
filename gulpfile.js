@@ -2,11 +2,12 @@
 
 var gulp = require("gulp"),
     sourcemaps = require("gulp-sourcemaps"),
-    browserify = require("gulp-browserify"),
-    uglify = require('uglify-js'),
+    browserify = require("browserify"),
+    source = require('vinyl-source-stream'),
+    aliasify = require("aliasify"),
+    aliasifyConfig = require("./aliasifyConfig"),
     del = require("del"),
     concat = require('gulp-concat'),
-    //htmlmin = require('gulp-htmlmin'),
     template = require('gulp-underscore-template');
 
 
@@ -14,10 +15,18 @@ var paths = {
     buildDir: ["./build/"],
     backboneDir: "./backbone/",
     backbonejs: "./backbone/**/*.js",
+    backbonehtml: "./backbone/**/*.html",
     backboneBootstrapJs: "./backbone/app.js"
 };
 
 
+gulp.task("browserifyjs", function() {
+    return browserify(paths.backboneBootstrapJs)
+        .transform(aliasify, aliasifyConfig)
+        .bundle()
+        .pipe(source('app.js'))
+        .pipe(gulp.dest("build/js"));
+});
 
 gulp.task("cleanjs", function() {
     return del(["build/js"]);
@@ -30,18 +39,12 @@ gulp.task("buildtlp", function() {
         .pipe(gulp.dest("build/js"));
 });
 
-gulp.task("buildjs", ["cleanjs", "buildtlp"], function() {
-    return gulp.src(paths.backboneBootstrapJs)
-             .pipe(sourcemaps.init())
-             .pipe(browserify({
-                "debug": !process.env.production
-              }))
-             .pipe(sourcemaps.write())
-             .pipe(gulp.dest("build/js"));
-});
+
+gulp.task("build", ["cleanjs", "buildtlp", "browserifyjs"]);
 
 gulp.task("watchjs", function() {
-    gulp.watch(paths.backbonejs, ["buildjs"]);
+    gulp.watch(paths.backbonejs, ["browserifyjs"]);
+    gulp.watch(paths.backbonehtml, ["buildtlp", "browserifyjs"]);
 });
 
 gulp.task("default", ["buildjs", "watchjs"]);
