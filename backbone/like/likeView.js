@@ -1,17 +1,20 @@
-'use strict';
-var app = app || {};
+"use strict";
 
-(function(Backbone){
-	app.likeView = Backbone.View.extend({
-		container: $('#container'),
-		template: _templates['like_template'],
-		initialize: function(){
-			this.render();
-		},
-		render: function(){
-			this.setElement(this.template());
-			this.container.html(this.el);
-		}
-	});
+var LikeView,
+    $ = require("jquery"),
+    _templates = require("templates"),
+    Marionette = require("backbone.marionette");
 
-})(window.Backbone);
+LikeView = Marionette.ItemView.extend({
+    container: $("#container"),
+    template: _templates["like/like_template"],
+    initialize: function(){
+        this.render();
+    },
+    render: function(){
+        this.setElement(this.template());
+        this.container.html(this.el);
+    }
+});
+
+module.exports = LikeView;

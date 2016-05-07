@@ -33,8 +33,8 @@ var paths = require("./paths.js"),
             "tasks": ["underscore_singlefile"]
         },
         "serverSrc": {
-            "files": [paths.serverjs, paths.serverspecjs],
-            "tasks": ["browserify"]
+            "files": ["./server/**/*.spec.js", "./server/**/*.js"],
+            "tasks": ["serverUT"]
         }
     },
 
@@ -46,17 +46,17 @@ var paths = require("./paths.js"),
         "options": {
             "seed": null,
             "useHelpers": true,
-            "stopOnFailure": false,
-            "traceFatal": 1,
+            "stopOnFailure": true,
+            "traceFatal": 0,
             "defaultTimeout": 5000,
             "specNameSuffix": ".spec.js",
             "helperNameSuffix": ".helper.js",
             "reporters": {
                 "console": {
                     "colors": 2,
-                    "verbosity": 3,
+                    "verbosity": 1,
                     "cleanStack": 1,
-                    "activity": false,
+                    "activity": true,
                     "listStyle": "indent"
                 }
             }
@@ -133,7 +133,7 @@ var paths = require("./paths.js"),
             "watch": ["watch"],
             "serverUT": ["jasmine_nodejs:serverUnitTest"],
             "checkJs": ["jscs", "linter"],
-            "build": ["checkJs", "serverUT", "buildClient"]
+            "build": ["checkJs", "serverUT"]
         }
     };
 
