@@ -1,0 +1,22 @@
+#header{
+    position: fixed;
+    height:40px;
+    width:100%;
+    top:0px;
+    color:white;
+    z-index: 1;
+    padding: 0px 5px;
+    line-height: 35px;
+}
+
+#container {
+    background-color: whitesmoke;
+    background-image: url(http://ww1.sinaimg.cn/large/75338fa1jw1f2jmmmurj7j21be0qonf0.jpg);
+    background-attachment: fixed;
+    background-position: 50% 20%;
+    background-size: 3400px;
+    width:100%;
+    height: 100vh;
+    overflow-y: auto;
+}
+

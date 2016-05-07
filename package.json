@@ -54,6 +54,7 @@
         "vinyl-source-stream": "1.1.0",
         "browserify": "13.0.0",
         "aliasify": "2.0.0",
+        "gulp-sass": "2.3.1",
         "gulp-underscore-template": "1.0.0",
         "gulp-concat": "2.6.0",
         "del": "2.2.0"
