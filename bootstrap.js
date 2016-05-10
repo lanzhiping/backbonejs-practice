@@ -2,6 +2,7 @@
 
 var port = 8000,
     bodyParser = require("body-parser"),
+    loginController = require("./server/loginController"),
     httpServer = require('./server/httpServer');
 
 (function () {
@@ -23,6 +24,8 @@ var port = 8000,
     app.post("/api/backbone", backboneServer.post);
     app.put("/api/backbone", backboneServer.put);
     app.delete("/api/backbone", backboneServer.delete);
+
+    app.use("/api/login", loginController);
 
     httpServer
         .withPort(process.env.PORT || port)

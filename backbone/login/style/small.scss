@@ -1,0 +1,40 @@
+.login-view {
+    height: 100%;
+}
+
+.login-background {
+    background-color: black;
+    opacity: 0.5;
+    height: 100%;
+}
+
+.login-form {
+    color: white;
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    width: 100%;
+
+    i {
+        font-size: 25px;
+        vertical-align: middle;
+    }
+
+    button {
+        width: 200px;
+        text-align: left;
+        border: none;
+        border-radius: 10px;
+
+        &:hover {
+            background: white;
+            transition: background-color .15s ease-out;
+        }
+
+        span {
+            display: inline-block;
+            width: 73%;
+            text-align: center;
+        }
+    }
+}

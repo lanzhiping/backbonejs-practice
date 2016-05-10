@@ -2,7 +2,7 @@
 
 var LikeView,
     $ = require("jquery"),
-    _templates = require("../../build/js/templates"),
+    _templates = require("templates"),
     Marionette = require("backbone.marionette");
 
 LikeView = Marionette.ItemView.extend({

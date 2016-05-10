@@ -2,7 +2,7 @@
 
 var HomeView,
     $ = require("jquery"),
-    _templates = require("../../build/js/templates"),
+    _templates = require("templates"),
     Marionette = require("backbone.marionette");
 
 HomeView = Marionette.ItemView.extend({

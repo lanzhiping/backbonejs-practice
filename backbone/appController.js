@@ -29,7 +29,7 @@ AppController = Marionette.Controller.extend({
     },
 
     "login": function() {
-        new LoginView();
+        new LoginView().render();
     },
 });
 
