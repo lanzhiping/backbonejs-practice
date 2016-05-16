@@ -22,4 +22,7 @@ function getOauthAddress() {
     return oauthAddress.replace("CLIENTID", key).replace("REDIRECTURL", redirectUrl);
 }
 
-module.exports = login;
+module.exports = {
+    "login": login,
+    "isLogined": isLogined
+};

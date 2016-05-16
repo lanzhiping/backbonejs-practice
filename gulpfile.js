@@ -4,6 +4,8 @@ var gulp = require("gulp"),
     sourcemaps = require("gulp-sourcemaps"),
     browserify = require("browserify"),
     source = require('vinyl-source-stream'),
+    path = require("path"),
+    es = require('event-stream'),
     aliasify = require("aliasify"),
     aliasifyConfig = require("./aliasifyConfig"),
     sass = require('gulp-sass'),
@@ -18,16 +20,20 @@ var paths = {
     backbonejs: "./backbone/**/*.js",
     backbonehtml: "./backbone/**/*.html",
     backbonesass: "./backbone/**/*.scss",
-    backboneBootstrapSass: "./backbone/main.scss",
-    backboneBootstrapJs: "./backbone/app.js"
+    backboneBootstrapSass: ["./backbone/pages/homePage/home.scss", "./backbone/pages/loginPage/login.scss"],
+    backboneBootstrapJs: ["./backbone/pages/homePage/home.js", "./backbone/pages/loginPage/login.js"]
 };
 
 gulp.task("browserifyjs", function() {
-    return browserify(paths.backboneBootstrapJs)
-        .transform(aliasify, aliasifyConfig)
-        .bundle()
-        .pipe(source('app.js'))
-        .pipe(gulp.dest("build/js"));
+    var tasks = paths.backboneBootstrapJs.map(function(entry) {
+        return browserify({"entries": [entry]})
+            .transform(aliasify, aliasifyConfig)
+            .bundle()
+            .pipe(source(path.basename(entry)))
+            .pipe(gulp.dest("build/js"));
+    });
+
+    return es.merge.apply(null, tasks);
 });
 
 gulp.task("cleanjs", function() {
@@ -35,7 +41,7 @@ gulp.task("cleanjs", function() {
 });
 
 gulp.task("cleancss", function() {
-    return del(["build/css"]);
+    return del(["./build/css"]);
 });
 
 gulp.task("buildtlp", function() {
@@ -47,8 +53,8 @@ gulp.task("buildtlp", function() {
 
 gulp.task("sass", ["cleancss"], function () {
   return gulp.src(paths.backboneBootstrapSass)
-    .pipe(sass().on("error", sass.logError))
-    .pipe(gulp.dest("build/css"));
+    .pipe(sass({}).on("error", sass.logError))
+    .pipe(gulp.dest("./build/css"));
 });
 
 gulp.task("watchsass", function () {

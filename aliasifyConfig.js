@@ -3,9 +3,13 @@
 module.exports = {
     aliases: {
         "templates": "./build/js/templates.js",
-        "appController": "./backbone/appController.js",
-        "router": "./backbone/router.js",
-        "iconButtonView": "./backbone/components/iconButtonView.js"
+        "iconButtonView": "./backbone/components/iconButtonView.js",
+
+        "appController": "./backbone/pages/homePage/appController.js",
+        "router": "./backbone/pages/homePage/router.js",
+
+        "loginView": "./backbone/login/loginView.js",
+        "loginRootView": "./backbone/pages/loginPage/loginRootView.js"
     },
     verbose: false
 };

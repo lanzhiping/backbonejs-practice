@@ -2,9 +2,9 @@
 
 var AppController,
     Marionette = require("backbone.marionette"),
-    HomeView = require("./home/homeView"),
-    LikeView = require("./like/likeView"),
-    LoginView = require("./login/loginView");
+    HomeView = require("../../home/homeView"),
+    LikeView = require("../../like/likeView"),
+    LoginView = require("../../login/loginView");
 
 AppController = Marionette.Controller.extend({
 
