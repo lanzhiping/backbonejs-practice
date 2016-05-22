@@ -5,6 +5,7 @@ var port = 8000,
     bodyParser = require("body-parser"),
     expressSession = require("express-session"),
     loginController = require("./server/loginController"),
+    weiboServer = require("./server/weiboServer"),
     httpServer = require('./server/httpServer');
 
 (function () {
@@ -35,6 +36,7 @@ var port = 8000,
     });
 
     app.get("/api/login", loginController.login);
+    app.get("/api/loginUser", weiboServer.loginUser);
 
     app.get("/api/backbone", backboneServer.get);
     app.post("/api/backbone", backboneServer.post);

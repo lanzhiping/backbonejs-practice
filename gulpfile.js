@@ -45,7 +45,7 @@ gulp.task("cleancss", function() {
 });
 
 gulp.task("buildtlp", function() {
-    return gulp.src(paths.backboneDir + "*/*.html")
+    return gulp.src(paths.backboneDir + "**/*_template.html")
         .pipe(template())
         .pipe(concat("templates.js"))
         .pipe(gulp.dest("build/js"));

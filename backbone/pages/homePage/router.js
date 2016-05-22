@@ -1,35 +1,24 @@
 "use strict";
 
 var Marionette = require("backbone.marionette"),
+    AppController = require("appController"),
     Router;
 
 Router = Marionette.AppRouter.extend({
+    "routes": {
+        "": "defaultToHome"
+    },
 
     "appRoutes": {
-        "home":                 "home",
-        "like":                 "like",
-        "login/:loginAccount":  "login",
-        "*actions":             "defaultRoute"
+        "home": "home",
+        "like": "like"
     },
 
-    "initialize": function(options) {
-        this.on("change:isLogined", this.defaultRoute);
-    },
+    "controller": new AppController(),
 
-    "execute": function(callback, args, name) {
-        if (!this.isLogined && name !== "login") {
-            this.navigate("login", { trigger:true });
-            return false;
-        }
-
-        if (this.isLogined && name === "login"){
-            this.navigate("home", { trigger: true });
-            return false;
-        }
-
-        if (callback) callback.apply(this, args);
+    "defaultToHome": function() {
+        this.navigate("home", { trigger: true });
     }
-
 });
 
 module.exports = Router;
