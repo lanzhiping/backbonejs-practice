@@ -21,14 +21,13 @@ LoginView = Marionette.ItemView.extend({
 
     template: _templates["login/login_template"],
 
-    render: function(){
+    onRender: function(){
         this.$el.html(this.template());
         this.container.html(this.$el);
-        return this;
     },
 
     signIn: function(){
-        window.location.replace("api/login");
+        window.location.replace("/api/login");
     }
 
 });

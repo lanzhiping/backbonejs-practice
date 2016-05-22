@@ -16,7 +16,7 @@ LoginRootView = Marionette.LayoutView.extend({
     },
 
     initializeLoginView: function() {
-        this.loginView = new LoginView().render();
+        this.loginView = new LoginView();
         this.showChildView("container", this.loginView);
     }
 });
