@@ -67,4 +67,5 @@ gulp.task("watchjs", function() {
 });
 
 gulp.task("buildjs", ["cleanjs", "buildtlp", "browserifyjs"]);
+gulp.task("build", ["buildjs", "sass"]);
 gulp.task("default", ["buildjs", "watchjs"]);
