@@ -5,7 +5,7 @@ var url = require("url"),
     request = require("request"),
     client_id = "3313882064",
     secret = "99127d065aff697b4a7bcfbc9da1db8e",
-    redirectUrl = "lanzhiping.heroku.com:8000/api/login",
+    redirectUrl = "lanzhiping.herokuapp.com/api/login",
     oauthAddress = "https://api.weibo.com/oauth2/authorize",
     tokenAddress = "https://api.weibo.com/oauth2/access_token";
 

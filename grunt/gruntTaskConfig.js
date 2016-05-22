@@ -133,7 +133,7 @@ var paths = require("./paths.js"),
             "watch": ["watch"],
             "serverUT": ["jasmine_nodejs:serverUnitTest"],
             "checkJs": ["jscs", "linter"],
-            "build": ["checkJs", "serverUT", "buildClient"]
+            "build": ["checkJs", "serverUT"]
         }
     };
 

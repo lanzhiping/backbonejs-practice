@@ -11,7 +11,9 @@ branches:
     - release
 before_script:
 - npm install
-script: npm run grunt build
+script:
+- npm run grunt build
+- npm run gulp build
 deploy:
   skip_cleanup: true
   provider: heroku
