@@ -19,7 +19,6 @@ var port = 8000,
     app.use("/build", express.static("build"));
     app.use("/font", express.static("font"));
 
-
     app.use("/login", function(req, res, next) {
         if (loginController.isLogined(req)) {
             res.redirect("/home");
@@ -34,8 +33,9 @@ var port = 8000,
             res.redirect("/login");
         }
     });
-    app.use("/", function(req, res, next) {
-        res.redirect("/home");
+
+    app.get("/", function(req, res, next) {
+        res.redirect("/home")
     });
 
     app.get("/api/login", loginController.login);
