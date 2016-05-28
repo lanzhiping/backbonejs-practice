@@ -8,8 +8,10 @@ var AppController,
 
 AppController = Marionette.Controller.extend({
     "home": function() {
-        new HeaderView().render();
-        // new HomeView();
+        this.headerView = new HeaderView().render();
+        this.homeView = new HomeView().render();
+
+        this.headerView.listenTo(this.homeView, "scrolling", this.headerView.onBodyScrolling);
     },
 
     "like": function() {

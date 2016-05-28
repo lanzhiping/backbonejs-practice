@@ -35,6 +35,10 @@ HeaderView = Marionette.ItemView.extend({
 
     renderImage: function() {
         this.ui.userImage.attr("src", this.model.get("avatar_large"));
+    },
+
+    onBodyScrolling: function(isScrollToTop) {
+        this.$el.toggleClass("header-docking", !isScrollToTop);
     }
 
 });

@@ -10,7 +10,9 @@ module.exports = {
 
         "headerView": "./backbone/components/header/headerView.js",
         "loginView": "./backbone/login/loginView.js",
-        "loginRootView": "./backbone/pages/loginPage/loginRootView.js"
+        "loginRootView": "./backbone/pages/loginPage/loginRootView.js",
+
+        "todoCollection": "./backbone/components/todo/todoCollection.js"
     },
     verbose: false
 };
