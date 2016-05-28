@@ -2,14 +2,12 @@
 
 var AppController,
     Marionette = require("backbone.marionette"),
-    HeaderView = require("headerView"),
-    HomeView = require("../../home/homeView"),
+    BodyView = require("homePage/bodyView"),
     LikeView = require("../../like/likeView");
 
 AppController = Marionette.Controller.extend({
     "home": function() {
-        new HeaderView().render();
-        // new HomeView();
+        this.bodyView = new BodyView().render();
     },
 
     "like": function() {
