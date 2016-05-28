@@ -34,6 +34,9 @@ var port = 8000,
             res.redirect("/login");
         }
     });
+    app.use("/", function(req, res, next) {
+        res.redirect("/home");
+    });
 
     app.get("/api/login", loginController.login);
     app.get("/api/loginUser", weiboServer.loginUser);
