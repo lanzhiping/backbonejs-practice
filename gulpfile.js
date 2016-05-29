@@ -10,7 +10,9 @@ var gulp = require("gulp"),
     sass = require('gulp-sass'),
     del = require("del"),
     concat = require('gulp-concat'),
-    template = require('gulp-underscore-template');
+    template = require('gulp-underscore-template'),
+    fs = require("fs"),
+    uglify = require("uglify-js");
 
 
 var paths = {
@@ -57,7 +59,7 @@ gulp.task("sass", ["cleancss"], function () {
 });
 
 gulp.task("watchsass", function () {
-  gulp.watch(paths.backbonesass, ["sass"]);
+    gulp.watch(paths.backbonesass, ["sass"]);
 });
 
 gulp.task("watchjs", function() {
@@ -65,6 +67,33 @@ gulp.task("watchjs", function() {
     gulp.watch(paths.backbonehtml, ["buildtlp", "browserifyjs"]);
 });
 
+gulp.task("uglifyjs", ["buildjs", "sass"], function() {
+    // var orig_code = fs.readFileSync("./build/js/home.js", "utf8");
+
+    // var toplevel = uglify.parse(orig_code, {
+    //     filename: "./build/js/home.js",
+    // });
+    // toplevel.figure_out_scope();
+
+    // var compressor = uglify.Compressor();
+    // var compressed_ast = toplevel.transform(compressor);
+    // compressed_ast.figure_out_scope();
+    // compressed_ast.compute_char_frequency();
+    // compressed_ast.mangle_names();
+
+    // var stream = uglify.OutputStream();
+    // compressed_ast.print(stream);
+    // var code = stream.toString();
+
+    // var orig_code = fs.readFileSync("./build/js/home.js", "utf8");
+
+    ["./build/js/home.js", "./build/js/login.js"]
+    .forEach(function(file) {
+        fs.writeFileSync(file, uglify.minify(file).code, "utf8");
+    });
+
+});
+
 gulp.task("buildjs", ["cleanjs", "buildtlp", "browserifyjs"]);
-gulp.task("build", ["buildjs", "sass"]);
+gulp.task("build", ["uglifyjs"]);
 gulp.task("default", ["buildjs", "watchjs"]);

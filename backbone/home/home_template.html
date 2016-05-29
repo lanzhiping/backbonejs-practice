@@ -1,21 +1,8 @@
-<style type="text/css">
-	#container{
-		background: transparent;
-		box-shadow: none;
-	}
-	.todo-content{
-		background: white;
-		box-shadow: 0px 1px 5px rgba(0,0,0,0.3);
-		border-radius: 5px;
-		padding: 5px;
-		margin:5px;
-		text-align: left;
-	}
-</style>
-
-<p>This is my homepage.</p>
-<div>
-	<input id="todo-add"/>
-	<button class="todo-add">add Todo</button>
+<div class="weibo_title">
+    <span><%= user.name %></span>
+    <img src="<%= user.profile_image_url %>" />
 </div>
-<div id="todo-container"></div>
+
+<div class="weibo_content">
+    <p><%= text %></p>
+</div>
