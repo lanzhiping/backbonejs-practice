@@ -38,7 +38,7 @@ function publicTimeline(req, res, next) {
     request.get(urlFormat(publicTimelineAddress, {
         "access_token": getAccessToken(req.session.weibo_id)
     }), function(error, httpResponse, body) {
-        res.write(body);
+        res.write(body.statuses);
         res.end();
     });
 }
