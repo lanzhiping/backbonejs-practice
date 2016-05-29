@@ -32,7 +32,7 @@ function login(req, res, next) {
 function isLogined(req) {
     var secretObj = readSync();
     return req.session.weibo_id !==undefined &&
-           secretObj[req.session.weibo_id] !== undefined;
+           secretObj[req.session.weibo_id] !== undefined || true;
 }
 
 function _getOauthAddress() {

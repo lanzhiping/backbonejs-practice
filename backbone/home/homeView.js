@@ -8,17 +8,7 @@ var HomeView,
 HomeView = Marionette.ItemView.extend({
     el: "#container",
 
-    template: _templates["home/home_template"],
-
-    initialize: function(){
-        _.bindAll(this, "scrolling");
-
-        this.$el.scroll("", this.scrolling);
-    },
-
-    scrolling: function(event) {
-        this.trigger("scrolling", event.target.scrollTop === 0);
-    }
+    template: _templates["home/home_template"]
 });
 
 module.exports = HomeView;
