@@ -24,9 +24,6 @@ body {
     line-height: 35px;
 }
 
-#container {
-    width:100%;
-}
-
 @import "../../../login/style/small.scss";
 @import "../../header/style/small.scss";
+@import "../../../home/style/small.scss";

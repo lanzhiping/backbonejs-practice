@@ -40,6 +40,7 @@ var port = 8000,
 
     app.get("/api/login", loginController.login);
     app.get("/api/loginUser", weiboServer.loginUser);
+    app.get("/api/publicWeibo", weiboServer.publicWeibo);
 
     app.get("/api/backbone", backboneServer.get);
     app.post("/api/backbone", backboneServer.post);

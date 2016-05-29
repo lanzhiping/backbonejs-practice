@@ -3,7 +3,8 @@
 var url = require("url"),
     fs = require("fs"),
     request = require("request"),
-    loginUserAddress = "https://api.weibo.com/2/users/show.json";
+    loginUserAddress = "https://api.weibo.com/2/users/show.json",
+    publicTimelineAddress = "https://api.weibo.com/2/statuses/public_timeline.json";
 
 function urlFormat(path, query) {
     var urlObj = url.parse(path, true);
@@ -33,6 +34,16 @@ function loginUser(req, res, next) {
     });
 }
 
+function publicTimeline(req, res, next) {
+    request.get(urlFormat(publicTimelineAddress, {
+        "access_token": getAccessToken(req.session.weibo_id)
+    }), function(error, httpResponse, body) {
+        res.write(body);
+        res.end();
+    });
+}
+
 module.exports = {
-    "loginUser": loginUser
+    "loginUser": loginUser,
+    "publicWeibo": publicTimeline
 };
