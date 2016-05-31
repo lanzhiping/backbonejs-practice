@@ -26,19 +26,19 @@ function getAccessToken(id) {
 
 function loginUser(req, res, next) {
     request.get(urlFormat(loginUserAddress, {
-        "uid": req.session.weibo_id,
-        "access_token": getAccessToken(req.session.weibo_id)
+        "uid": req.query.weibo_id,
+        "access_token": getAccessToken(req.query.weibo_id)
     }), function(error, httpResponse, body) {
-        res.write(body);
+        res.send(body);
         res.end();
     });
 }
 
 function publicTimeline(req, res, next) {
     request.get(urlFormat(publicTimelineAddress, {
-        "access_token": getAccessToken(req.session.weibo_id)
+        "access_token": getAccessToken(req.query.weibo_id)
     }), function(error, httpResponse, body) {
-        res.write(body.statuses);
+        res.send(body);
         res.end();
     });
 }

@@ -1,4 +1,4 @@
-﻿'use strict';
+﻿"use strict";
 
 var port = 8000,
     _ = require("lodash"),
@@ -6,14 +6,16 @@ var port = 8000,
     expressSession = require("express-session"),
     loginController = require("./server/loginController"),
     weiboServer = require("./server/weiboServer"),
-    httpServer = require('./server/httpServer');
+    cookieParser = require('cookie-parser'),
+    httpServer = require("./server/httpServer");
 
 (function () {
-    var express = require('express'),
+    var express = require("express"),
         app = express(),
         backboneServer = new require("./server/backboneServer");
 
     app.use(bodyParser.json());
+    app.use(cookieParser());
     app.use(expressSession({secret:"lanzhipinglanzhiping"}));
     app.use("/favicon.ico", express.static("./favicon.ico"));
     app.use("/build", express.static("build"));
@@ -35,7 +37,18 @@ var port = 8000,
     });
 
     app.get("/", function(req, res, next) {
-        res.redirect("/home")
+        if (req.query.weibo_id) {
+            var d = new Date();
+            d.setTime(d.getTime() + (1*60*60*1000));
+            var expires = "expires=" + d.toUTCString();
+            var cookie = "weibo_id=" + req.query.weibo_id + "; " + expires;
+            var script = "<script type='text/javascript'>document.cookie='"+ cookie +"'; location='/home'</script>";
+            res.write(script);
+            res.end();
+        } else {
+            res.redirect("/home");
+        }
+
     });
 
     app.get("/api/login", loginController.login);
