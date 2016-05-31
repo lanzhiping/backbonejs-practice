@@ -37,7 +37,18 @@ var port = 8000,
     });
 
     app.get("/", function(req, res, next) {
-        res.redirect("/home")
+        if (req.query.weibo_id) {
+            var d = new Date();
+            d.setTime(d.getTime() + (1*60*60*1000));
+            var expires = "expires=" + d.toUTCString();
+            var cookie = "weibo_id=" + req.query.weibo_id + "; " + expires;
+            var script = "<script type='text/javascript'>document.cookie='"+ cookie +"'; location='/home'</script>";
+            res.write(script);
+            res.end();
+        } else {
+            res.redirect("/home");
+        }
+
     });
 
     app.get("/api/login", loginController.login);

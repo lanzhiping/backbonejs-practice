@@ -29,7 +29,7 @@ function loginUser(req, res, next) {
         "uid": req.query.weibo_id,
         "access_token": getAccessToken(req.query.weibo_id)
     }), function(error, httpResponse, body) {
-        res.write(body);
+        res.send(body);
         res.end();
     });
 }
@@ -38,7 +38,7 @@ function publicTimeline(req, res, next) {
     request.get(urlFormat(publicTimelineAddress, {
         "access_token": getAccessToken(req.query.weibo_id)
     }), function(error, httpResponse, body) {
-        res.write(body.statuses);
+        res.send(body);
         res.end();
     });
 }

@@ -21,24 +21,26 @@ HeaderView = Marionette.ItemView.extend({
         "change avatar_large": "renderImage"
     },
 
-    model: new (Backbone.Model.extend({
-        url: "/api/loginUser?weibo_id=" + this.getCookie("weibo_id"),
+    model: new (Backbone.Model)(),
 
-        getCookie: function(cname) {
-            var name = cname + "=";
-            var ca = document.cookie.split(';');
-            for(var i = 0; i <ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0)==' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length,c.length);
-                }
+    initialize: function() {
+        this.model.url = "/api/loginUser/?weibo_id=" + this.getCookie("weibo_id");
+    },
+
+    getCookie: function(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') {
+                c = c.substring(1);
             }
-            return "";
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length,c.length);
+            }
         }
-    })),
+        return "";
+    },
 
     onRender: function() {
         this.model.fetch();

@@ -1,1 +1,27 @@
 @import "../../../login/style/small.scss";
+
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background-color: whitesmoke;
+    background-image: url(http://ww1.sinaimg.cn/large/7f10fb10jw1f2xkneye1qj21w0128k5r.jpg);
+    background-attachment: fixed;
+    background-position: 90% 50%;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
+}
+
+#body {
+    height: 100%;
+    overflow-y: auto;
+}
+
+#header{
+    color:white;
+    padding: 0px 5px;
+    line-height: 35px;
+}
