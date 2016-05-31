@@ -22,7 +22,7 @@ function login(req, res, next) {
         _getToken(req.query.code).then(function(data) {
             writeSync(data.uid, data.access_token);
             req.session.weibo_id = data.uid;
-            res.redirect("/login");
+            res.redirect("/?weibo_id="+data.uid);
         });
     } else if (!isLogined(req)) {
         res.redirect(_getOauthAddress());
@@ -31,7 +31,7 @@ function login(req, res, next) {
 
 function isLogined(req) {
     var secretObj = readSync();
-    return req.session.weibo_id !==undefined &&
+    return req.session.weibo_id !== undefined &&
            secretObj[req.session.weibo_id] !== undefined;
 }
 
