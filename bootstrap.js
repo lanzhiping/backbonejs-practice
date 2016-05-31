@@ -1,4 +1,4 @@
-﻿'use strict';
+﻿"use strict";
 
 var port = 8000,
     _ = require("lodash"),
@@ -6,14 +6,16 @@ var port = 8000,
     expressSession = require("express-session"),
     loginController = require("./server/loginController"),
     weiboServer = require("./server/weiboServer"),
-    httpServer = require('./server/httpServer');
+    cookieParser = require('cookie-parser'),
+    httpServer = require("./server/httpServer");
 
 (function () {
-    var express = require('express'),
+    var express = require("express"),
         app = express(),
         backboneServer = new require("./server/backboneServer");
 
     app.use(bodyParser.json());
+    app.use(cookieParser());
     app.use(expressSession({secret:"lanzhipinglanzhiping"}));
     app.use("/favicon.ico", express.static("./favicon.ico"));
     app.use("/build", express.static("build"));

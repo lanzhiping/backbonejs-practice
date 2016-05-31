@@ -5,7 +5,7 @@ var url = require("url"),
     request = require("request"),
     client_id = "3313882064",
     secret = "99127d065aff697b4a7bcfbc9da1db8e",
-    redirectUrl = "lanzhiping.herokuapp.com/api/login",
+    redirectUrl = "127.0.0.1:8000/api/login",
     oauthAddress = "https://api.weibo.com/oauth2/authorize",
     tokenAddress = "https://api.weibo.com/oauth2/access_token";
 
@@ -22,6 +22,7 @@ function login(req, res, next) {
         _getToken(req.query.code).then(function(data) {
             writeSync(data.uid, data.access_token);
             req.session.weibo_id = data.uid;
+            res.cookie("weibo_id", data.uid, { domain: req.hostname, secure: true, expires: new Date(Date.now() + data.expire_in) });
             res.redirect("/login");
         });
     } else if (!isLogined(req)) {
