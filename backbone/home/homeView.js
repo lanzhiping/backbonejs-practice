@@ -1,10 +1,22 @@
 "use strict";
 
 var HomeView,
-    _ = require("lodash"),
+    ChildView,
     Backbone = require("backbone"),
     _templates = require("templates"),
     Marionette = require("backbone.marionette");
+
+ChildView = Marionette.ItemView.extend({
+    className: "weibo_container",
+
+    template: _templates["home/home_template"],
+
+    serializeData: function(){
+        return {
+            "data": this.model.toJSON()
+        }
+    }
+});
 
 HomeView = Marionette.CollectionView.extend({
     el: "#container",
@@ -19,11 +31,7 @@ HomeView = Marionette.CollectionView.extend({
         this.collection.fetch();
     },
 
-    childView: Marionette.ItemView.extend({
-        className: "weibo_container",
-
-        template: _templates["home/home_template"],
-    }),
+    childView: ChildView,
 
     getCookie: function(cname) {
         var name = cname + "=";
