@@ -1,0 +1,14 @@
+@mixin m-transition ($property:'all', $duration:'0.25s') {
+    -webkit-transition: '#{$property}' '#{$duration}' cubic-bezier(0, 0.68, 0.39, 0.99);
+    -moz-transition: '#{$property}' '#{$duration}' cubic-bezier(0, 0.68, 0.39, 0.99);
+    -o-transition: '#{$property}' '#{$duration}' cubic-bezier(0, 0.68, 0.39, 0.99);
+    transition: '#{$property}' '#{$duration}' cubic-bezier(0, 0.68, 0.39, 0.99);
+}
+
+@mixin m-transform ($rotate:'0deg', $scale:1, $translate:'0px, 0px 0px')  {
+  transform: rotate(#{$rotate}) scale($scale) translate(#{$translate});
+  -webkit-transform: rotate(#{$rotate}) scale($scale) translate(#{$translate});
+  -moz-transform: rotate(#{$rotate}) scale($scale) translate(#{$translate});
+  -o-transform: rotate(#{$rotate}) scale($scale) translate(#{$translate});
+  -ms-transform: rotate(#{$rotate}) scale($scale) translate(#{$translate});
+}
