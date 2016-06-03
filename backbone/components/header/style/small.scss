@@ -3,7 +3,8 @@
 
     .header_user {
         &_name {
-
+            padding-top: 15px;
+            display: inline-block;
         }
 
         &_image {
@@ -21,6 +22,7 @@
 
 
     &.header-docking {
+        box-shadow: 0 0 5px 0px #000000;
         background: white;
         position: fixed;
         top: 0px;
