@@ -5,5 +5,7 @@
 
 <div class="weibo_content">
     <p><%= data.text %></p>
-    <img src="<%= data.original_pic || data.retweeted_status.original_pic %>" />
+    <% if (data.pic_urls.length > 0 ) { %>
+        <img src="<%= data.original_pic || data.retweeted_status.original_pic %>" />
+    <% } %>
 </div>
