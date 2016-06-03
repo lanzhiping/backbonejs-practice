@@ -1,9 +1,9 @@
 <div class="weibo_title">
-    <span><%= user.name %></span>
-    <img src="<%= user.profile_image_url %>" />
+    <span><%= data.user.name %></span>
+    <img src="<%= data.user.profile_image_url %>" />
 </div>
 
 <div class="weibo_content">
-    <p><%= text %></p>
-    <img src="<%= original_pic %>" />
+    <p><%= data.text %></p>
+    <img src="<%= data.original_pic || data.retweeted_status.original_pic %>" />
 </div>
