@@ -4,7 +4,7 @@ var url = require("url"),
     fs = require("fs"),
     request = require("request"),
     loginUserAddress = "https://api.weibo.com/2/users/show.json",
-    publicTimelineAddress = "https://api.weibo.com/2/statuses/public_timeline.json";
+    publicTimelineAddress = "https://api.weibo.com/2/statuses/home_timeline.json";
 
 function urlFormat(path, query) {
     var urlObj = url.parse(path, true);
