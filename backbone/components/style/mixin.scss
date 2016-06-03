@@ -1,14 +1,14 @@
 @mixin m-transition ($property:'all', $duration:'0.25s') {
-    -webkit-transition: '#{$property}' '#{$duration}' cubic-bezier(0, 0.68, 0.39, 0.99);
-    -moz-transition: '#{$property}' '#{$duration}' cubic-bezier(0, 0.68, 0.39, 0.99);
-    -o-transition: '#{$property}' '#{$duration}' cubic-bezier(0, 0.68, 0.39, 0.99);
-    transition: '#{$property}' '#{$duration}' cubic-bezier(0, 0.68, 0.39, 0.99);
+    -webkit-transition: #{$property} #{$duration} cubic-bezier(0, 0.68, 0.39, 0.99);
+    -moz-transition: #{$property} #{$duration} cubic-bezier(0, 0.68, 0.39, 0.99);
+    -o-transition: #{$property} #{$duration} cubic-bezier(0, 0.68, 0.39, 0.99);
+    transition: #{$property} #{$duration} cubic-bezier(0, 0.68, 0.39, 0.99);
 }
 
 @mixin m-transform ($rotate:'0deg', $scale:1, $translate3d:'0px, 0px 0px')  {
-  transform: rotate(#{$rotate}) scale($scale) translate(#{$translate3d});
-  -webkit-transform: rotate(#{$rotate}) scale($scale) translate(#{$translate3d});
-  -moz-transform: rotate(#{$rotate}) scale($scale) translate(#{$translate3d});
-  -o-transform: rotate(#{$rotate}) scale($scale) translate(#{$translate3d});
-  -ms-transform: rotate(#{$rotate}) scale($scale) translate(#{$translate3d});
+  transform: rotate(#{$rotate}) scale($scale) translate3d(#{$translate3d});
+  -webkit-transform: rotate(#{$rotate}) scale($scale) translate3d(#{$translate3d});
+  -moz-transform: rotate(#{$rotate}) scale($scale) translate3d(#{$translate3d});
+  -o-transform: rotate(#{$rotate}) scale($scale) translate3d(#{$translate3d});
+  -ms-transform: rotate(#{$rotate}) scale($scale) translate3d(#{$translate3d});
 }
