@@ -48,7 +48,7 @@
             }
 
             .weibo_content img {
-                @include m-transform($scale:3, $translate3d:'21px, --7px, 0px');
+                @include m-transform($scale:3, $translate3d:'21px, -7px, 0px');
                 @include m-transition;
             }
         }
