@@ -3,27 +3,15 @@
 
     "scripts": {
         "start": "node bootstrap.js",
-        "grunt": "grunt",
-        "gulp": "gulp",
-        "p": "pm2",
-        "pm2s": "pm2 start bootstrap.js",
-        "pm2-l": "pm2 list",
-        "pm2-m": "pm2 monit",
-        "pm2-d": "pm2 delete",
-        "pm2-s": "pm2 stop",
-        "pm2-log":"pm2 logs"
+        "grunt": "grunt"
     },
 
     "dependencies": {
-        "backbone": "1.2.3",
-        "underscore": "1.8.3",
-        "backbone.marionette": "2.4.4",
-        "jquery": "2.2.0",
+        "sha1": "1.1.1",
         "lodash": "4.6.1"
     },
 
     "devDependencies": {
-        "pm2": "1.0.0",
         "express": "4.13.4",
         "express-session": "1.13.0",
         "cookie-parser": "1.4.3",
@@ -34,34 +22,11 @@
 
         "grunt-linter": "0.3.3",
         "grunt-jscs": "2.8.0",
-
-        "proxyquire": "1.7.4",
-        "grunt-jasmine-nodejs": "1.5.2",
-
-        "grunt-karma": "0.12.1",
-        "jasmine-core": "2.4.1",
-        "karma-jasmine": "0.3.7",
-        "karma-chrome-launcher": "0.2.2",
-        "karma-phantomjs-launcher": "1.0.0",
-
         "grunt-webpack": "1.0.11",
 
         "grunt-contrib-watch": "0.6.1",
         "grunt-contrib-uglify": "0.11.0",
         "grunt-contrib-concat": "0.5.1",
-        "grunt-underscore-singlefile": "0.1.2",
-
-
-        "gulp": "3.9.1",
-        "gulp-cli": "1.2.1",
-        "uglify-js": "2.6.2",
-        "vinyl-source-stream": "1.1.0",
-        "browserify": "13.0.0",
-        "aliasify": "2.0.0",
-        "event-stream": "3.3.2",
-        "gulp-sass": "2.3.1",
-        "gulp-underscore-template": "1.0.0",
-        "gulp-concat": "2.6.0",
-        "del": "2.2.0"
+        "grunt-underscore-singlefile": "0.1.2"
     }
 }

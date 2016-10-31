@@ -1,66 +1,46 @@
 ﻿"use strict";
 
-var port = 8000,
-    _ = require("lodash"),
+var log = [],
+    port = 8000,
+    TOKEN = "lanzhiping",
+    express = require("express"),
     bodyParser = require("body-parser"),
-    expressSession = require("express-session"),
-    loginController = require("./server/loginController"),
-    weiboServer = require("./server/weiboServer"),
-    cookieParser = require('cookie-parser'),
+    sha1 = require('crypto').createHash('sha1'),
     httpServer = require("./server/httpServer");
 
+function logRequest(req) {
+    log.push({
+        time: new Date(),
+        message: req.body || req.query
+    });
+}
+
+function checkSignature(params, token){
+    var key = [TOKEN, params.timestamp, params.nonce].sort().join('');
+
+    sha1.update(key);
+    return sha1.digest('hex') === params.signature;
+}
+
+
 (function () {
-    var express = require("express"),
-        app = express(),
-        backboneServer = new require("./server/backboneServer");
+    var app = express();
 
-    app.use(bodyParser.json());
-    app.use(cookieParser());
-    app.use(expressSession({secret:"lanzhipinglanzhiping"}));
-    app.use("/favicon.ico", express.static("./favicon.ico"));
-    app.use("/build", express.static("build"));
-    app.use("/font", express.static("font"));
+    app.use(bodyParser.json())
+       .use("/", express.static("./client"));
 
-    app.use("/login", function(req, res, next) {
-        if (loginController.isLogined(req)) {
-            res.redirect("/home");
-        } else {
-            express.static("backbone/pages/loginPage")(req, res, next);
-        }
+    app.get("/wx", (req, res) => {;
+        logRequest(req);
+        res.end(checkSignature(req.query) ? req.query.echostr : 'signature fail');
     });
-    app.use("/home", function(req, res, next) {
-        if (loginController.isLogined(req)) {
-            express.static("backbone/pages/homePage")(req, res, next);
-        } else {
-            res.redirect("/login");
-        }
+    app.post("/wx", (req, res) => {;
+        logRequest(req);
+        res.end('success');
     });
-
-    app.get("/", function(req, res, next) {
-        if (req.query.weibo_id) {
-            var d = new Date();
-            d.setTime(d.getTime() + (1*60*60*1000));
-            var expires = "expires=" + d.toUTCString();
-            var cookie = "weibo_id=" + req.query.weibo_id + "; " + expires;
-            var script = "<script type='text/javascript'>document.cookie='"+ cookie +"'; location='/home'</script>";
-            res.write(script);
-            res.end();
-        } else {
-            res.redirect("/home");
-        }
-
+    app.get("/log", (req, res) => {
+        res.send(log);
+        res.end();
     });
-
-    app.get("/api/login", loginController.login);
-    app.get("/api/loginUser", weiboServer.loginUser);
-    app.get("/api/publicWeibo", weiboServer.publicWeibo);
-
-    app.get("/api/backbone", backboneServer.get);
-    app.post("/api/backbone", backboneServer.post);
-    app.put("/api/backbone", backboneServer.put);
-    app.delete("/api/backbone", backboneServer.delete);
-
-
 
     httpServer
         .withPort(process.env.PORT || port)
