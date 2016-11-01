@@ -1,0 +1,30 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    background: #eeeeee;
+}
+
+.wxapi_index_list {
+    list-style: none;
+}
+
+.wxapi_index_item {
+    padding: 5px 0;
+}
+
+.label_inner {
+    color: #333333;
+    text-decoration: none;
+}
+
+.label_inner:hover {
+    border-bottom: solid 1px #333333;
+}
+
+.wxapi_form {
+    margin: 50px 20px;
+}
+
+.wxapi_form h3 {
+    margin-top: 45px;
+}
