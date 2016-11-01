@@ -8,7 +8,8 @@
 
     "dependencies": {
         "sha1": "1.1.1",
-        "lodash": "4.6.1"
+        "lodash": "4.6.1",
+        "jssha": "^1.5.0"
     },
 
     "devDependencies": {
