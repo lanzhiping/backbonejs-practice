@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>lannano login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <style>
+        .container {
+            border: solid 1px #888888;
+            margin: 50px auto;
+            width: 500px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input {
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+
+        input.name {
+            border: none;
+            border-bottom: #888888 solid 1px;
+            line-height: 2;
+        }
+
+        input.submit {
+            border: #888888 solid 1px;
+            background: #888888;
+            color: #ffffff;
+            border-radius: 5px;
+            line-height: 2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="title">Lannano Login</h2>
+        <div class="inputs">
+                <form class="input-form" action="/wechatlogin">
+                    <input type="text" class="name" name="firstname" placeholder="First name">
+                    <input type="text" class="name" name="lastname" placeholder="Last name">
+                    <input type="submit" class="submit" value="Submit">
+                </form>
+        </div>
+    </div>
+</body>
+<script src="/jquery.min.js"></script>
+<script>
+
+</script>
+
+</html>
